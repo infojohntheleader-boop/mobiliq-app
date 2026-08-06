@@ -39,19 +39,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to create organization.' }, { status: 500 });
     }
 
+    const orgData = org as Record<string, any>;
+
     // Create user (owner)
     const { error: userErr } = await getSupabaseAdmin().from('User').insert({
       email: email.toLowerCase(),
       password: hashedPassword,
       name,
       role: 'owner',
-      orgId: org.id,
+      orgId: orgData.id,
       sessionToken,
     });
 
     if (userErr) {
       // Clean up org
-      await getSupabaseAdmin().from('Organization').delete().eq('id', org.id);
+      await getSupabaseAdmin().from('Organization').delete().eq('id', orgData.id);
       return NextResponse.json({ error: 'Failed to create user.' }, { status: 500 });
     }
 

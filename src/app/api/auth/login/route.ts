@@ -20,7 +20,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid email or password.' }, { status: 401 });
     }
 
-    const valid = await verifyPassword(password, user.password);
+    const u = user as Record<string, any>;
+    const valid = await verifyPassword(password, u.password);
     if (!valid) {
       return NextResponse.json({ error: 'Invalid email or password.' }, { status: 401 });
     }
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
     await getSupabaseAdmin()
       .from('User')
       .update({ sessionToken })
-      .eq('id', user.id);
+      .eq('id', u.id);
 
     return NextResponse.json({ success: true, sessionToken });
   } catch {
