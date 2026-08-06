@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuth } from '@/lib/verify-auth';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 
 export async function GET() {
   const user = await verifyAuth();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await getSupabaseAdmin()
     .from('Service')
     .select(`*, addons:ServiceAddon(*)`)
     .eq('orgId', user.orgId)
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
   // Add-on operations
   if (body.action === 'addAddon') {
-    const { error } = await supabaseAdmin.from('ServiceAddon').insert({
+    const { error } = await getSupabaseAdmin().from('ServiceAddon').insert({
       name: body.name,
       price: body.price,
       serviceId: body.serviceId,
@@ -35,12 +35,12 @@ export async function POST(req: NextRequest) {
   }
 
   if (body.action === 'deleteAddon') {
-    await supabaseAdmin.from('ServiceAddon').delete().eq('id', body.addonId).eq('orgId', user.orgId);
+    await getSupabaseAdmin().from('ServiceAddon').delete().eq('id', body.addonId).eq('orgId', user.orgId);
     return NextResponse.json({ success: true });
   }
 
   // Create service
-  const { data, error } = await supabaseAdmin.from('Service').insert({
+  const { data, error } = await getSupabaseAdmin().from('Service').insert({
     name: body.name,
     description: body.description || null,
     price: body.price,

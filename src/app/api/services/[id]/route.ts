@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuth } from '@/lib/verify-auth';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await verifyAuth();
@@ -9,7 +9,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const { id } = await params;
   const body = await req.json();
 
-  const { error } = await supabaseAdmin
+  const { error } = await getSupabaseAdmin()
     .from('Service')
     .update(body)
     .eq('id', id)
@@ -24,6 +24,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  await supabaseAdmin.from('Service').delete().eq('id', id).eq('orgId', user.orgId);
+  await getSupabaseAdmin().from('Service').delete().eq('id', id).eq('orgId', user.orgId);
   return NextResponse.json({ success: true });
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 import { hashPassword, generateToken, generateSlug } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const slug = generateSlug(businessName);
 
     // Check if email exists globally
-    const { data: existingUser } = await supabaseAdmin
+    const { data: existingUser } = await getSupabaseAdmin()
       .from('User')
       .select('id')
       .eq('email', email.toLowerCase())
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create org
-    const { data: org, error: orgErr } = await supabaseAdmin
+    const { data: org, error: orgErr } = await getSupabaseAdmin()
       .from('Organization')
       .insert({ name: businessName, slug })
       .select('id')
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create user (owner)
-    const { error: userErr } = await supabaseAdmin.from('User').insert({
+    const { error: userErr } = await getSupabaseAdmin().from('User').insert({
       email: email.toLowerCase(),
       password: hashedPassword,
       name,
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
     if (userErr) {
       // Clean up org
-      await supabaseAdmin.from('Organization').delete().eq('id', org.id);
+      await getSupabaseAdmin().from('Organization').delete().eq('id', org.id);
       return NextResponse.json({ error: 'Failed to create user.' }, { status: 500 });
     }
 

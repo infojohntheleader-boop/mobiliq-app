@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const { data: org } = await supabaseAdmin
+  const { data: org } = await getSupabaseAdmin()
     .from('Organization')
     .select('id')
     .eq('slug', slug)
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
 
   const body = await req.json();
 
-  const { data: booking, error } = await supabaseAdmin.from('Booking').insert({
+  const { data: booking, error } = await getSupabaseAdmin().from('Booking').insert({
     customerName: body.customerName,
     customerEmail: body.customerEmail,
     customerPhone: body.customerPhone || null,
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
       addonPrice: a.price,
       orgId: org.id,
     }));
-    await supabaseAdmin.from('BookingAddon').insert(addonRows);
+    await getSupabaseAdmin().from('BookingAddon').insert(addonRows);
   }
 
   return NextResponse.json({ success: true, bookingId: booking.id }, { status: 201 });

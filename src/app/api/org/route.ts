@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuth } from '@/lib/verify-auth';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 
 export async function GET() {
   const user = await verifyAuth();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { data } = await supabaseAdmin
+  const { data } = await getSupabaseAdmin()
     .from('Organization')
     .select('*')
     .eq('id', user.orgId)
@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest) {
 
   const body = await req.json();
 
-  await supabaseAdmin
+  await getSupabaseAdmin()
     .from('Organization')
     .update({
       name: body.name,

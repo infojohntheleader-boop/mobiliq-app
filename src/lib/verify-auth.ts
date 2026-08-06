@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { supabaseAdmin } from './db';
+import { getSupabaseAdmin } from './db';
 
 export interface AuthUser {
   id: string;
@@ -17,7 +17,7 @@ export async function verifyAuth(): Promise<AuthUser | null> {
 
   if (!token) return null;
 
-  const { data: user } = await supabaseAdmin
+  const { data: user } = await getSupabaseAdmin()
     .from('User')
     .select('id, email, name, role, orgId, Organization(name, slug)')
     .eq('sessionToken', token)
@@ -25,13 +25,14 @@ export async function verifyAuth(): Promise<AuthUser | null> {
 
   if (!user) return null;
 
+  const org = (user as any).Organization;
   return {
     id: user.id,
     email: user.email,
     name: user.name,
     role: user.role,
     orgId: user.orgId,
-    orgName: user.Organization?.name || '',
-    orgSlug: user.Organization?.slug || '',
+    orgName: org?.name || '',
+    orgSlug: org?.slug || '',
   };
 }

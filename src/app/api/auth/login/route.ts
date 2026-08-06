@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 import { verifyPassword, generateToken } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email and password are required.' }, { status: 400 });
     }
 
-    const { data: user, error } = await supabaseAdmin
+    const { data: user, error } = await getSupabaseAdmin()
       .from('User')
       .select('*')
       .eq('email', email.toLowerCase())
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     const sessionToken = generateToken();
 
-    await supabaseAdmin
+    await getSupabaseAdmin()
       .from('User')
       .update({ sessionToken })
       .eq('id', user.id);

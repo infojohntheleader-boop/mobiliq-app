@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuth } from '@/lib/verify-auth';
-import { supabaseAdmin } from '@/lib/db';
+import { getSupabaseAdmin } from '@/lib/db';
 import { hashPassword } from '@/lib/auth';
 
 export async function GET() {
   const user = await verifyAuth();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await getSupabaseAdmin()
     .from('User')
     .select('id, name, email, role, createdAt')
     .eq('orgId', user.orgId);
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
   const hashedPassword = await hashPassword(body.password);
 
-  const { error } = await supabaseAdmin.from('User').insert({
+  const { error } = await getSupabaseAdmin().from('User').insert({
     email: body.email.toLowerCase(),
     password: hashedPassword,
     name: body.name,
@@ -54,6 +54,6 @@ export async function DELETE(req: NextRequest) {
   }
 
   const { id } = await req.json();
-  await supabaseAdmin.from('User').delete().eq('id', id).eq('orgId', user.orgId).neq('role', 'owner');
+  await getSupabaseAdmin().from('User').delete().eq('id', id).eq('orgId', user.orgId).neq('role', 'owner');
   return NextResponse.json({ success: true });
 }
