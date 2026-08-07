@@ -50,32 +50,32 @@ const statusConfig: Record<
 > = {
   pending: {
     label: 'Pending',
-    dotColor: 'var(--electric-blue)',
-    bg: 'var(--electric-blue-light)',
-    text: 'var(--electric-blue)',
+    dotColor: 'var(--accent)',
+    bg: 'var(--accent-muted)',
+    text: 'var(--accent)',
   },
   confirmed: {
     label: 'Confirmed',
     dotColor: 'var(--emerald)',
-    bg: 'var(--emerald-light)',
+    bg: 'var(--emerald-muted)',
     text: 'var(--emerald)',
   },
   'in-progress': {
     label: 'In Progress',
     dotColor: 'var(--amber)',
-    bg: 'var(--amber-light)',
+    bg: 'var(--amber-muted)',
     text: 'var(--amber)',
   },
   completed: {
     label: 'Completed',
-    dotColor: 'var(--gray-400)',
-    bg: 'var(--gray-100)',
-    text: 'var(--gray-500)',
+    dotColor: 'var(--text-muted)',
+    bg: 'var(--border-subtle)',
+    text: 'var(--text-tertiary)',
   },
   cancelled: {
     label: 'Cancelled',
     dotColor: 'var(--rose)',
-    bg: 'var(--rose-light)',
+    bg: 'var(--rose-muted)',
     text: 'var(--rose)',
   },
 };
@@ -146,7 +146,7 @@ function SkeletonCard() {
     <div
       className="rounded-2xl p-6"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
       }}
     >
@@ -154,39 +154,39 @@ function SkeletonCard() {
         {/* Dot skeleton */}
         <div
           className="shrink-0 w-3 h-3 rounded-full mt-1.5"
-          style={{ background: 'var(--gray-200)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
+          style={{ background: 'var(--border)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
         />
         <div className="flex-1 space-y-3">
           {/* Name */}
           <div
             className="h-4 rounded-md w-40"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
           />
           {/* Email */}
           <div
             className="h-3 rounded-md w-56"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.1s infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.1s infinite' }}
           />
           {/* Vehicle + Service row */}
           <div className="flex gap-4">
             <div
               className="h-3 rounded-md w-32"
-              style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.2s infinite' }}
+              style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.2s infinite' }}
             />
             <div
               className="h-3 rounded-md w-24"
-              style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.3s infinite' }}
+              style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.3s infinite' }}
             />
           </div>
           {/* Date/Time + Status row */}
           <div className="flex items-center gap-3 pt-1">
             <div
               className="h-6 rounded-full w-24"
-              style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.4s infinite' }}
+              style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.4s infinite' }}
             />
             <div
               className="h-6 rounded-full w-20"
-              style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.5s infinite' }}
+              style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.5s infinite' }}
             />
           </div>
         </div>
@@ -194,11 +194,11 @@ function SkeletonCard() {
         <div className="shrink-0 flex gap-2">
           <div
             className="h-8 w-8 rounded-lg"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
           />
           <div
             className="h-8 w-8 rounded-lg"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.15s infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.15s infinite' }}
           />
         </div>
       </div>
@@ -220,20 +220,20 @@ function EmptyState() {
         style={{
           width: 80,
           height: 80,
-          background: 'var(--gray-100)',
+          background: 'var(--bg-hover)',
         }}
       >
-        <CalendarX size={36} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
+        <CalendarX size={36} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
       </div>
       <h3
         className="text-[17px] font-semibold mb-2"
-        style={{ color: 'var(--gray-700)' }}
+        style={{ color: 'var(--text-secondary)' }}
       >
         No appointments yet
       </h3>
       <p
         className="text-[14px] max-w-xs text-center"
-        style={{ color: 'var(--gray-400)' }}
+        style={{ color: 'var(--text-muted)' }}
       >
         When customers book a service, their appointments will appear here.
       </p>
@@ -259,18 +259,18 @@ function AppointmentCard({
 
   if (booking.status === 'pending') {
     availableActions.push(
-      { label: 'Confirm', icon: Check, status: 'confirmed', color: 'var(--emerald)', bg: 'var(--emerald-light)' },
-      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-light)' },
+      { label: 'Confirm', icon: Check, status: 'confirmed', color: 'var(--emerald)', bg: 'var(--emerald-muted)' },
+      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-muted)' },
     );
   } else if (booking.status === 'confirmed') {
     availableActions.push(
-      { label: 'Start', icon: Play, status: 'in-progress', color: 'var(--amber)', bg: 'var(--amber-light)' },
-      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-light)' },
+      { label: 'Start', icon: Play, status: 'in-progress', color: 'var(--amber)', bg: 'var(--amber-muted)' },
+      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-muted)' },
     );
   } else if (booking.status === 'in-progress') {
     availableActions.push(
-      { label: 'Complete', icon: CircleCheck, status: 'completed', color: 'var(--emerald)', bg: 'var(--emerald-light)' },
-      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-light)' },
+      { label: 'Complete', icon: CircleCheck, status: 'completed', color: 'var(--emerald)', bg: 'var(--emerald-muted)' },
+      { label: 'Cancel', icon: XIcon, status: 'cancelled', color: 'var(--rose)', bg: 'var(--rose-muted)' },
     );
   }
 
@@ -278,7 +278,7 @@ function AppointmentCard({
     <div
       className="rounded-2xl p-5 md:p-6 transition-all duration-200 group"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
         animation: 'fadeIn 0.35s ease-out both',
       }}
@@ -303,7 +303,7 @@ function AppointmentCard({
           />
           <div
             className="w-0.5 flex-1 mt-1 rounded-full min-h-[40px]"
-            style={{ background: 'var(--gray-100)' }}
+            style={{ background: 'var(--bg-hover)' }}
           />
         </div>
 
@@ -313,14 +313,14 @@ function AppointmentCard({
           <div className="flex items-start justify-between gap-3 mb-1">
             <h3
               className="text-[15px] font-semibold truncate"
-              style={{ color: 'var(--gray-900)' }}
+              style={{ color: 'var(--text-primary)' }}
             >
               {booking.customerName}
             </h3>
             {booking.servicePrice != null && (
               <span
                 className="shrink-0 text-[14px] font-bold tabular-nums"
-                style={{ color: 'var(--electric-blue)' }}
+                style={{ color: 'var(--accent)' }}
               >
                 ${Number(booking.servicePrice).toFixed(2)}
               </span>
@@ -329,10 +329,10 @@ function AppointmentCard({
 
           {/* Row 2: Email */}
           <div className="flex items-center gap-1.5 mb-2.5">
-            <Mail size={12} strokeWidth={1.5} style={{ color: 'var(--gray-400)', flexShrink: 0 }} />
+            <Mail size={12} strokeWidth={1.5} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
             <span
               className="text-[12.5px] truncate"
-              style={{ color: 'var(--gray-500)' }}
+              style={{ color: 'var(--text-tertiary)' }}
             >
               {booking.customerEmail}
             </span>
@@ -341,10 +341,10 @@ function AppointmentCard({
           {/* Row 3: Vehicle + Service */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3">
             <div className="flex items-center gap-1.5">
-              <Car size={12} strokeWidth={1.5} style={{ color: 'var(--gray-400)', flexShrink: 0 }} />
+              <Car size={12} strokeWidth={1.5} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
               <span
                 className="text-[12.5px]"
-                style={{ color: 'var(--gray-600)' }}
+                style={{ color: 'var(--text-tertiary)' }}
               >
                 {vehicleLabel(booking)}
               </span>
@@ -352,7 +352,7 @@ function AppointmentCard({
             {booking.serviceName && (
               <span
                 className="text-[12.5px] font-medium"
-                style={{ color: 'var(--gray-500)' }}
+                style={{ color: 'var(--text-tertiary)' }}
               >
                 {booking.serviceName}
               </span>
@@ -362,14 +362,14 @@ function AppointmentCard({
           {/* Row 4: Date, Time, Status Badge */}
           <div className="flex flex-wrap items-center gap-2.5">
             <div className="flex items-center gap-1.5">
-              <CalendarDays size={12.5} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
-              <span className="text-[12px] font-medium" style={{ color: 'var(--gray-500)' }}>
+              <CalendarDays size={12.5} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
+              <span className="text-[12px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 {formatDate(booking.date)}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Clock size={12.5} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
-              <span className="text-[12px] font-medium" style={{ color: 'var(--gray-500)' }}>
+              <Clock size={12.5} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
+              <span className="text-[12px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 {formatTime(booking.time)}
               </span>
             </div>
@@ -420,17 +420,17 @@ function AppointmentCard({
             className="flex items-center justify-center w-8 h-8 rounded-xl text-[12px] transition-all duration-150"
             style={{
               background: 'transparent',
-              color: 'var(--gray-400)',
+              color: 'var(--text-muted)',
               opacity: 0,
               transform: 'translateX(4px)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--rose-light)';
+              e.currentTarget.style.background = 'var(--rose-muted)';
               e.currentTarget.style.color = 'var(--rose)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = 'var(--gray-400)';
+              e.currentTarget.style.color = 'var(--text-muted)';
             }}
             title="Delete"
             aria-label="Delete appointment"
@@ -575,13 +575,13 @@ export default function AppointmentsPage() {
         <div>
           <h2
             className="text-[22px] md:text-[26px] font-bold tracking-tight"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             Appointments
           </h2>
           <p
             className="text-[13.5px] mt-1"
-            style={{ color: 'var(--gray-500)' }}
+            style={{ color: 'var(--text-tertiary)' }}
           >
             Manage your upcoming bookings and schedule
           </p>
@@ -589,18 +589,18 @@ export default function AppointmentsPage() {
         <button
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13.5px] font-semibold text-white shrink-0 transition-all duration-150"
           style={{
-            background: 'var(--electric-blue)',
-            boxShadow: 'var(--shadow-glow-blue)',
+            background: 'var(--accent)',
+            boxShadow: 'var(--shadow-glow)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue-hover)';
+            e.currentTarget.style.background = 'var(--accent-hover)';
             e.currentTarget.style.transform = 'translateY(-1px)';
             e.currentTarget.style.boxShadow = '0 4px 24px rgba(37,99,235,0.25)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue)';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
           }}
         >
           <CalendarPlus size={16} strokeWidth={2} />
@@ -618,9 +618,9 @@ export default function AppointmentsPage() {
         <div
           className="rounded-2xl p-3 md:p-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4"
           style={{
-            background: 'var(--white)',
-            boxShadow: 'var(--shadow-xs)',
-            border: '1px solid var(--gray-100)',
+            background: 'var(--bg-secondary)',
+            boxShadow: 'var(--shadow-sm)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           {/* Tabs */}
@@ -632,20 +632,20 @@ export default function AppointmentsPage() {
                 className="shrink-0 px-3.5 py-1.5 rounded-lg text-[12.5px] font-medium transition-all duration-150"
                 style={{
                   background:
-                    activeTab === tab.key ? 'var(--electric-blue)' : 'transparent',
+                    activeTab === tab.key ? 'var(--accent)' : 'transparent',
                   color:
-                    activeTab === tab.key ? 'var(--white)' : 'var(--gray-500)',
+                    activeTab === tab.key ? 'var(--white)' : 'var(--text-tertiary)',
                 }}
                 onMouseEnter={(e) => {
                   if (activeTab !== tab.key) {
-                    e.currentTarget.style.background = 'var(--gray-50)';
-                    e.currentTarget.style.color = 'var(--gray-800)';
+                    e.currentTarget.style.background = 'var(--bg-secondary)';
+                    e.currentTarget.style.color = 'var(--text-secondary)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (activeTab !== tab.key) {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'var(--gray-500)';
+                    e.currentTarget.style.color = 'var(--text-tertiary)';
                   }
                 }}
               >
@@ -663,7 +663,7 @@ export default function AppointmentsPage() {
               size={14.5}
               strokeWidth={1.8}
               className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-              style={{ color: 'var(--gray-400)' }}
+              style={{ color: 'var(--text-muted)' }}
             />
             <input
               type="text"
@@ -672,9 +672,9 @@ export default function AppointmentsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 pr-3 py-2 text-[13px] rounded-lg w-full"
               style={{
-                background: 'var(--gray-50)',
-                border: '1.5px solid var(--gray-200)',
-                color: 'var(--gray-800)',
+                background: 'var(--bg-secondary)',
+                border: '1.5px solid var(--border)',
+                color: 'var(--text-secondary)',
               }}
             />
           </div>
@@ -685,9 +685,9 @@ export default function AppointmentsPage() {
               onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-[12.5px] font-medium shrink-0 transition-all duration-150"
               style={{
-                background: statusFilter ? 'var(--gray-50)' : 'transparent',
-                border: '1.5px solid var(--gray-200)',
-                color: statusFilter ? 'var(--gray-800)' : 'var(--gray-500)',
+                background: statusFilter ? 'var(--bg-secondary)' : 'transparent',
+                border: '1.5px solid var(--border)',
+                color: statusFilter ? 'var(--text-secondary)' : 'var(--text-tertiary)',
               }}
             >
               <span>{statusFilter ? statusConfig[statusFilter]?.label || 'All Status' : 'All Status'}</span>
@@ -704,8 +704,8 @@ export default function AppointmentsPage() {
               <div
                 className="absolute right-0 top-full mt-1.5 py-1 rounded-xl z-20 min-w-[160px]"
                 style={{
-                  background: 'var(--white)',
-                  border: '1px solid var(--gray-200)',
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border)',
                   boxShadow: 'var(--shadow-lg)',
                   animation: 'fadeIn 0.15s ease-out both',
                 }}
@@ -717,11 +717,11 @@ export default function AppointmentsPage() {
                   }}
                   className="w-full text-left px-3.5 py-2 text-[12.5px] transition-colors duration-100"
                   style={{
-                    color: 'var(--gray-600)',
-                    background: statusFilter === '' ? 'var(--gray-50)' : 'transparent',
+                    color: 'var(--text-tertiary)',
+                    background: statusFilter === '' ? 'var(--bg-secondary)' : 'transparent',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--gray-50)';
+                    e.currentTarget.style.background = 'var(--bg-secondary)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'transparent';
@@ -738,11 +738,11 @@ export default function AppointmentsPage() {
                     }}
                     className="w-full text-left px-3.5 py-2 text-[12.5px] transition-colors duration-100 flex items-center gap-2"
                     style={{
-                      color: 'var(--gray-600)',
-                      background: statusFilter === key ? 'var(--gray-50)' : 'transparent',
+                      color: 'var(--text-tertiary)',
+                      background: statusFilter === key ? 'var(--bg-secondary)' : 'transparent',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--gray-50)';
+                      e.currentTarget.style.background = 'var(--bg-secondary)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = 'transparent';
@@ -767,7 +767,7 @@ export default function AppointmentsPage() {
       {!loading && (
         <p
           className="text-[12.5px] font-medium mb-4"
-          style={{ color: 'var(--gray-400)', animation: 'fadeIn 0.3s ease-out both' }}
+          style={{ color: 'var(--text-muted)', animation: 'fadeIn 0.3s ease-out both' }}
         >
           {filteredBookings.length} appointment{filteredBookings.length !== 1 ? 's' : ''}
         </p>

@@ -1,216 +1,424 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import {
+  Menu,
+  X,
+  ArrowRight,
+  CalendarClock,
+  FileText,
+  Users,
+  CreditCard,
+  BarChart3,
+  Sparkles,
+  Check,
+  Star,
+} from 'lucide-react';
 
 const CAR_IMAGE = 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/fcae316342f2.jpg';
 
+function useCountUp(target: number, duration = 2000, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTs: number;
+    let raf: number;
+    const step = (ts: number) => {
+      if (!startTs) startTs = ts;
+      const progress = Math.min((ts - startTs) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration, start]);
+  return count;
+}
+
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
+
+const features = [
+  {
+    icon: CalendarClock,
+    title: 'Smart Scheduling',
+    description: 'Accept online bookings 24/7. Set availability, offer packages with add-ons, and eliminate phone tag forever.',
+    color: 'var(--accent)',
+    bg: 'var(--accent-muted)',
+    span: 'col-span-1 md:col-span-2',
+    rowSpan: '',
+  },
+  {
+    icon: FileText,
+    title: 'Professional Invoicing',
+    description: 'Auto-generate invoices from completed jobs. Track payments, send receipts, and keep finances organized.',
+    color: 'var(--emerald)',
+    bg: 'var(--emerald-muted)',
+    span: 'col-span-1',
+    rowSpan: 'row-span-2',
+  },
+  {
+    icon: Users,
+    title: 'Customer CRM',
+    description: 'Know every customer by name. Track vehicle history, preferences, and communication in one profile.',
+    color: 'var(--violet)',
+    bg: 'var(--violet-muted)',
+    span: 'col-span-1',
+    rowSpan: '',
+  },
+  {
+    icon: CreditCard,
+    title: 'Payment Processing',
+    description: 'Accept payments instantly. Support cards, ACH, and send automatic payment reminders.',
+    color: 'var(--amber)',
+    bg: 'var(--amber-muted)',
+    span: 'col-span-1',
+    rowSpan: '',
+  },
+  {
+    icon: BarChart3,
+    title: 'Analytics',
+    description: 'Real-time dashboards with revenue trends, customer growth, and service performance metrics.',
+    color: 'var(--rose)',
+    bg: 'var(--rose-muted)',
+    span: 'col-span-1',
+    rowSpan: '',
+  },
+  {
+    icon: Sparkles,
+    title: 'Service Packages',
+    description: 'Create and customize service bundles with pricing tiers, duration estimates, and upsell add-ons.',
+    color: 'var(--accent)',
+    bg: 'var(--accent-muted)',
+    span: 'col-span-1',
+    rowSpan: '',
+  },
+];
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$29',
+    period: '/mo',
+    popular: false,
+    features: ['Up to 50 bookings/mo', '3 services', '1 team member', 'Basic booking page', 'Email support'],
+  },
+  {
+    name: 'Pro',
+    price: '$59',
+    period: '/mo',
+    popular: true,
+    features: ['Unlimited bookings', 'Unlimited services', '5 team members', 'Custom branding', 'Add-ons & upgrades', 'Priority support'],
+  },
+  {
+    name: 'Business',
+    price: '$99',
+    period: '/mo',
+    popular: false,
+    features: ['Everything in Pro', 'Unlimited team', 'API access', 'White-label option', 'Dedicated support', 'Custom integrations'],
+  },
+];
+
+const navLinks = [
+  { label: 'Features', href: '#features' },
+  { label: 'Dashboard', href: '#dashboard' },
+  { label: 'Pricing', href: '#pricing' },
+];
+
 export default function LandingPage() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const statsRef = useInView(0.2);
+  const count1 = useCountUp(12, 2000, statsRef.inView);
+  const count2 = useCountUp(84, 2000, statsRef.inView);
+  const count3 = useCountUp(2400, 2000, statsRef.inView);
+  const count4 = useCountUp(999, 2000, statsRef.inView);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* ===== HEADER ===== */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+    <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <header className="fixed top-0 left-0 right-0 z-50 glass glass-border" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: 'var(--electric-blue)' }}>M</div>
-            <span className="text-lg font-bold text-gray-900">Mobiliq</span>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+              style={{ background: 'var(--accent)' }}
+            >
+              M
+            </div>
+            <span className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>Mobiliq</span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#products" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Products</a>
-            <a href="#solutions" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Solutions</a>
-            <a href="#pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Pricing</a>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium transition"
+                style={{ color: 'var(--text-secondary)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 px-4 py-2 transition">Log in</Link>
-            <Link href="/signup" className="text-sm font-medium text-white px-5 py-2.5 rounded-lg transition" style={{ background: 'var(--electric-blue)' }}>Start Free Trial</Link>
+            <Link
+              href="/login"
+              className="text-sm font-medium px-4 py-2 transition"
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
+            >
+              Log in
+            </Link>
+            <Link href="/signup" className="btn-primary">
+              Get Started
+              <ArrowRight size={15} strokeWidth={2.2} />
+            </Link>
           </div>
-          <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden p-2 text-gray-600">
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <button
+            onClick={() => setMobileMenu(!mobileMenu)}
+            className="md:hidden p-2 rounded-lg"
+            style={{ color: 'var(--text-secondary)' }}
+            aria-label="Toggle menu"
+          >
+            {mobileMenu ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
         {mobileMenu && (
-          <div className="md:hidden border-t border-gray-100 bg-white px-6 py-4 space-y-3">
-            <a href="#products" onClick={() => setMobileMenu(false)} className="block text-sm font-medium text-gray-600">Products</a>
-            <a href="#solutions" onClick={() => setMobileMenu(false)} className="block text-sm font-medium text-gray-600">Solutions</a>
-            <a href="#pricing" onClick={() => setMobileMenu(false)} className="block text-sm font-medium text-gray-600">Pricing</a>
-            <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
-              <Link href="/login" className="text-sm font-medium text-gray-600 py-2">Log in</Link>
-              <Link href="/signup" className="text-sm font-medium text-white text-center py-2.5 rounded-lg" style={{ background: 'var(--electric-blue)' }}>Start Free Trial</Link>
+          <div className="md:hidden px-6 py-4 space-y-3" style={{ borderTop: '1px solid var(--border-subtle)', background: 'var(--bg-secondary)' }}>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenu(false)}
+                className="block text-sm font-medium py-2"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="pt-3 flex flex-col gap-2" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+              <Link href="/login" className="text-sm font-medium py-2" style={{ color: 'var(--text-secondary)' }}>Log in</Link>
+              <Link href="/signup" className="btn-primary text-center">Get Started</Link>
             </div>
           </div>
         )}
       </header>
 
-      {/* ===== HERO ===== */}
-      <section className="pt-28 pb-20 lg:pt-36 lg:pb-28 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.08] tracking-tight text-gray-900 mb-6">
-              Run Your Detailing Business{' '}
-              <span style={{ color: 'var(--electric-blue)' }}>Like a Pro</span>
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 px-6 overflow-hidden">
+        <div className="absolute inset-0 hero-grid" />
+        <div className="hero-glow" />
+        <div className="relative max-w-7xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="animate-fade-in-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-8" style={{ background: 'var(--accent-muted)', color: 'var(--accent)', border: '1px solid rgba(59,130,246,0.2)' }}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
+              Now in public beta
+            </div>
+            <h1 className="animate-fade-in-up text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6" style={{ animationDelay: '100ms' }}>
+              The operating system{' '}
+              <br className="hidden sm:block" />
+              <span className="gradient-text">for your detailing shop</span>
             </h1>
-            <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-lg">
-              All-in-one platform for managing bookings, invoicing, and customer relationships. Give your detailing business the tools it deserves — all under your own brand.
+            <p className="animate-fade-in-up text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)', animationDelay: '200ms' }}>
+              Manage bookings, invoicing, customer relationships, and payments — all from one beautifully crafted platform built for car detailing businesses.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg text-white font-semibold text-base transition shadow-lg shadow-blue-900/20" style={{ background: 'var(--electric-blue)' }}>
+            <div className="animate-fade-in-up flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '300ms' }}>
+              <Link href="/signup" className="btn-primary px-8 py-3 text-base">
                 Start Free Trial
-                <svg className="ml-2" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                <ArrowRight size={16} strokeWidth={2.5} />
               </Link>
-              <a href="#demo" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg font-semibold text-base border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition">
-                Book a Demo
+              <a href="#dashboard" className="btn-ghost px-8 py-3 text-base">
+                See the Dashboard
               </a>
             </div>
           </div>
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-            <img src={CAR_IMAGE} alt="Luxury car in detailing studio" className="w-full h-[400px] lg:h-[480px] object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SOCIAL PROOF ===== */}
-      <section className="py-12 px-6 border-y border-gray-100 bg-gray-50">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-sm font-medium text-gray-500">Trusted by detailers worldwide</p>
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-2">
-              {['bg-blue-700', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500', 'bg-violet-500'].map((bg, i) => (
-                <div key={i} className={`w-9 h-9 rounded-full ${bg} border-2 border-white flex items-center justify-center text-white text-xs font-bold`}>{['JD','MK','AR','TL','SP'][i]}</div>
-              ))}
-            </div>
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} width="18" height="18" viewBox="0 0 20 20" fill="#FBBF24"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.063 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z"/></svg>
-              ))}
-              <span className="text-sm font-semibold text-gray-700 ml-1">4.9/5</span>
-              <span className="text-sm text-gray-400">(2,400+ reviews)</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FEATURE GRID ===== */}
-      <section id="products" className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Products</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Everything you need in one place</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">Stop juggling spreadsheets, phone calls, and messy notes. Mobiliq brings every part of your business into a single, beautiful dashboard.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: (
-                  <svg width="28" height="28" fill="none" stroke="#00288e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
-                ),
-                title: 'Smart Scheduling',
-                desc: 'Customers book online 24/7. Set your availability, offer service packages with add-ons, and eliminate phone tag forever.',
-              },
-              {
-                icon: (
-                  <svg width="28" height="28" fill="none" stroke="#00288e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
-                ),
-                title: 'Professional Invoicing',
-                desc: 'Generate invoices automatically from completed jobs. Track payments, send receipts, and keep your finances organized.',
-              },
-              {
-                icon: (
-                  <svg width="28" height="28" fill="none" stroke="#00288e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                ),
-                title: 'Customer CRM',
-                desc: 'Know every customer by name. Track vehicle history, preferences, and communication — all in one profile.',
-              },
-            ].map((f, i) => (
-              <div key={i} className="group p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 bg-white">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ background: 'var(--blue-50)' }}>
-                  {f.icon}
+          <div className="animate-fade-in-up mt-16 lg:mt-20 max-w-4xl mx-auto" style={{ animationDelay: '450ms' }}>
+            <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}>
+              <div className="flex items-center gap-2 px-5 py-3" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-subtle)' }}>
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full" style={{ background: 'var(--rose)' }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: 'var(--amber)' }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: 'var(--emerald)' }} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{f.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{f.desc}</p>
+                <div className="flex-1 mx-4">
+                  <div className="text-center text-xs py-1 rounded-md max-w-xs mx-auto" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-muted)', border: '1px solid var(--border-subtle)' }}>
+                    app.mobiliq.com/dashboard
+                  </div>
+                </div>
               </div>
-            ))}
+              <div className="relative">
+                <img
+                  src={CAR_IMAGE}
+                  alt="Car detailing dashboard preview"
+                  className="w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--bg-primary) 0%, transparent 40%)' }} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PRODUCT PREVIEW ===== */}
-      <section id="solutions" className="py-24 px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Dashboard</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Experience the Precision</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">A real-time command center built for detailing businesses. See everything at a glance.</p>
+      <section ref={statsRef.ref} className="py-16 px-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
+              ${count1}k+
+            </p>
+            <p className="text-sm mt-1.5" style={{ color: 'var(--text-secondary)' }}>Monthly Revenue Avg.</p>
           </div>
-          <div className="rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-gray-900/10 overflow-hidden">
-            {/* Mock Dashboard Bar */}
-            <div className="flex items-center gap-2 px-6 py-3 border-b border-gray-100 bg-gray-50">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-amber-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
+              {count2.toLocaleString()}+
+            </p>
+            <p className="text-sm mt-1.5" style={{ color: 'var(--text-secondary)' }}>Bookings Processed</p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
+              {count3.toLocaleString()}+
+            </p>
+            <p className="text-sm mt-1.5" style={{ color: 'var(--text-secondary)' }}>Happy Customers</p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>
+              {statsRef.inView ? '99.9%' : '0%'}
+            </p>
+            <p className="text-sm mt-1.5" style={{ color: 'var(--text-secondary)' }}>Uptime</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--accent)' }}>Features</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
+              Everything you need to run your shop
+            </h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              Stop juggling spreadsheets and phone calls. Mobiliq brings every part of your business into one dashboard.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {features.map((f, i) => {
+              const Icon = f.icon;
+              return (
+                <div
+                  key={i}
+                  className={`feature-card ${f.span} ${f.rowSpan}`}
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                    style={{ background: f.bg, color: f.color }}
+                  >
+                    <Icon size={20} strokeWidth={1.8} />
+                  </div>
+                  <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{f.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{f.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" className="py-24 px-6" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--accent)' }}>Dashboard</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
+              Your command center
+            </h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              A real-time dashboard built for detailing businesses. See everything at a glance.
+            </p>
+          </div>
+          <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}>
+            <div className="flex items-center gap-2 px-5 py-3" style={{ background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-subtle)' }}>
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full" style={{ background: 'var(--rose)' }} />
+                <div className="w-3 h-3 rounded-full" style={{ background: 'var(--amber)' }} />
+                <div className="w-3 h-3 rounded-full" style={{ background: 'var(--emerald)' }} />
+              </div>
               <div className="flex-1 mx-4">
-                <div className="bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-400 max-w-xs">mobiliq.com/dashboard</div>
+                <div className="text-center text-xs py-1 rounded-md max-w-xs mx-auto" style={{ background: 'var(--bg-primary)', color: 'var(--text-muted)', border: '1px solid var(--border-subtle)' }}>
+                  app.mobiliq.com/dashboard
+                </div>
               </div>
             </div>
-            {/* Mock Dashboard Content */}
-            <div className="p-8">
-              <div className="grid grid-cols-4 gap-6 mb-8">
+            <div className="p-6 sm:p-8" style={{ background: 'var(--bg-primary)' }}>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 {[
-                  { label: 'Monthly Revenue', value: '$12,480', change: '+23%', color: '#00288e' },
-                  { label: 'Active Bookings', value: '34', change: '+12%', color: '#059669' },
-                  { label: 'New Customers', value: '18', change: '+8%', color: '#7C3AED' },
-                  { label: 'Completion Rate', value: '96%', change: '+2%', color: '#DC2626' },
+                  { label: 'Revenue Today', value: '$2,840', change: '+12.5%', color: 'var(--emerald)' },
+                  { label: 'Appointments', value: '8', change: '3 remaining', color: 'var(--accent)' },
+                  { label: 'In Progress', value: '4', change: '2 washing', color: 'var(--amber)' },
+                  { label: 'Pending Invoices', value: '$1,240', change: '5 invoices', color: 'var(--violet)' },
                 ].map((s, i) => (
-                  <div key={i} className="p-5 rounded-xl border border-gray-100">
-                    <p className="text-xs font-medium text-gray-400 mb-1">{s.label}</p>
-                    <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-                    <p className="text-xs font-medium text-emerald-500 mt-1">{s.change} vs last month</p>
+                  <div key={i} className="dash-card">
+                    <p className="text-xs font-medium mb-2" style={{ color: 'var(--text-tertiary)' }}>{s.label}</p>
+                    <p className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{s.value}</p>
+                    <p className="text-xs mt-1.5" style={{ color: s.color }}>{s.change}</p>
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-3 gap-6">
-                {/* Appointments List */}
-                <div className="col-span-2 rounded-xl border border-gray-100 overflow-hidden">
-                  <div className="px-5 py-3 border-b border-gray-100 bg-gray-50">
-                    <p className="text-sm font-semibold text-gray-700">Upcoming Appointments</p>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 dash-card" style={{ padding: 0, overflow: 'hidden' }}>
+                  <div className="px-5 py-3" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                    <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Today's Schedule</p>
                   </div>
                   {[
-                    { time: '9:00 AM', name: 'Marcus Johnson', service: 'Full Detail', vehicle: '2024 BMW M4', status: 'Confirmed' },
-                    { time: '11:30 AM', name: 'Sarah Williams', service: 'Ceramic Coating', vehicle: '2023 Porsche 911', status: 'Pending' },
-                    { time: '2:00 PM', name: 'David Chen', service: 'Interior Only', vehicle: '2025 Tesla Model S', status: 'Confirmed' },
-                    { time: '4:30 PM', name: 'Amanda Torres', service: 'Paint Correction', vehicle: '2024 Mercedes AMG', status: 'In Progress' },
+                    { time: '9:00 AM', name: 'Marcus Johnson', svc: 'Full Detail', vehicle: '2024 BMW M4', status: 'Confirmed', statusColor: 'var(--accent)' },
+                    { time: '11:30 AM', name: 'Sarah Williams', svc: 'Ceramic Coating', vehicle: '2023 Porsche 911', status: 'In Progress', statusColor: 'var(--amber)' },
+                    { time: '2:00 PM', name: 'David Chen', svc: 'Interior Only', vehicle: '2025 Tesla Model S', status: 'Confirmed', statusColor: 'var(--accent)' },
+                    { time: '4:30 PM', name: 'Amanda Torres', svc: 'Paint Correction', vehicle: '2024 Mercedes AMG', status: 'Completed', statusColor: 'var(--emerald)' },
                   ].map((a, i) => (
-                    <div key={i} className="flex items-center justify-between px-5 py-3.5 border-b border-gray-50 last:border-0">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ background: ['#3B82F6','#10B981','#F59E0B','#8B5CF6'][i] }}>{a.name.split(' ').map(n=>n[0]).join('')}</div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-800">{a.name}</p>
-                          <p className="text-xs text-gray-400">{a.service} · {a.vehicle}</p>
+                    <div key={i} className="flex items-center justify-between px-5 py-3" style={{ borderBottom: i < 3 ? '1px solid var(--border-subtle)' : 'none' }}>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="text-xs font-mono tabular-nums shrink-0 w-16" style={{ color: 'var(--text-muted)' }}>{a.time}</span>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{a.name}</p>
+                          <p className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>{a.svc} · {a.vehicle}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-600">{a.time}</p>
-                        <span className={`text-xs font-medium ${a.status === 'Confirmed' ? 'text-emerald-600' : a.status === 'Pending' ? 'text-amber-600' : 'var(--electric-blue)'}`}>{a.status}</span>
-                      </div>
+                      <span className="shrink-0 text-xs font-semibold" style={{ color: a.statusColor }}>{a.status}</span>
                     </div>
                   ))}
                 </div>
-                {/* Revenue Chart Placeholder */}
-                <div className="rounded-xl border border-gray-100 p-5">
-                  <p className="text-sm font-semibold text-gray-700 mb-4">Revenue This Week</p>
-                  <div className="flex items-end gap-2 h-40">
+                <div className="dash-card">
+                  <p className="text-sm font-semibold mb-5" style={{ color: 'var(--text-primary)' }}>Revenue This Week</p>
+                  <div className="flex items-end gap-1.5" style={{ height: 120 }}>
                     {[45, 62, 38, 71, 55, 80, 68].map((h, i) => (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full rounded-t-sm transition-all" style={{ height: `${h}%`, background: i === 5 ? 'var(--electric-blue)' : 'var(--blue-50)', minHeight: '8px' }} />
-                        <span className="text-[10px] text-gray-400">{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>
+                      <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
+                        <div
+                          className="w-full rounded-sm"
+                          style={{
+                            height: `${h}%`,
+                            background: i === 5 ? 'var(--accent)' : 'var(--bg-hover)',
+                            minHeight: 6,
+                          }}
+                        />
+                        <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between">
-                    <span className="text-xs text-gray-400">Weekly Total</span>
-                    <span className="text-sm font-bold" style={{ color: 'var(--electric-blue)' }}>$4,280</span>
+                  <div className="flex items-center justify-between mt-4 pt-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                    <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Weekly Total</span>
+                    <span className="text-sm font-bold gradient-text">$4,280</span>
                   </div>
                 </div>
               </div>
@@ -219,56 +427,81 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIAL ===== */}
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <svg className="mx-auto mb-6" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00288e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
-          <blockquote className="text-2xl sm:text-3xl font-medium text-gray-900 leading-relaxed mb-8">
+          <div className="flex justify-center mb-6">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'var(--accent-muted)' }}>
+              <Star size={18} style={{ color: 'var(--accent)' }} fill="var(--accent)" />
+            </div>
+          </div>
+          <blockquote className="text-xl sm:text-2xl lg:text-3xl font-medium leading-relaxed mb-8" style={{ color: 'var(--text-primary)' }}>
             &ldquo;Mobiliq completely transformed how we run our shop. We went from 15 phone calls a day for bookings to zero. Our revenue is up 40% and our customers love the professional booking experience.&rdquo;
           </blockquote>
           <div className="flex items-center justify-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center text-white text-lg font-bold">JR</div>
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              style={{ background: 'var(--accent-gradient)' }}
+            >
+              JR
+            </div>
             <div className="text-left">
-              <p className="font-semibold text-gray-900">Jake Rodriguez</p>
-              <p className="text-sm text-gray-500">Owner, Precision Auto Spa · Austin, TX</p>
+              <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>Jake Rodriguez</p>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Owner of Precision Auto Spa</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== PRICING ===== */}
-      <section id="pricing" className="py-24 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section id="pricing" className="py-24 px-6" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Pricing</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">Start free. Upgrade when you're ready. No hidden fees.</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--accent)' }}>Pricing</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
+              Simple, transparent pricing
+            </h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              Start free. Upgrade when you're ready. No hidden fees.
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { plan: 'Starter', price: '$29', period: '/mo', features: ['Up to 50 bookings/mo','3 services','1 team member','Basic booking page','Email support'], cta: 'Start Free Trial', popular: false },
-              { plan: 'Pro', price: '$59', period: '/mo', features: ['Unlimited bookings','Unlimited services','5 team members','Custom branding','Add-ons & upgrades','Priority support'], cta: 'Start Free Trial', popular: true },
-              { plan: 'Business', price: '$99', period: '/mo', features: ['Everything in Pro','Unlimited team','API access','White-label option','Dedicated support','Custom integrations'], cta: 'Start Free Trial', popular: false },
-            ].map((p, i) => (
-              <div key={i} className={`relative p-8 rounded-2xl border ${p.popular ? 'border-blue-200 shadow-xl shadow-blue-900/10' : 'border-gray-200'} bg-white`}>
-                {p.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold text-white" style={{ background: 'var(--electric-blue)' }}>Most Popular</div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {plans.map((plan) => (
+              <div
+                key={plan.name}
+                className="relative rounded-2xl p-8"
+                style={{
+                  background: plan.popular ? 'var(--bg-tertiary)' : 'var(--bg-primary)',
+                  border: plan.popular ? '1px solid rgba(59,130,246,0.3)' : '1px solid var(--border-subtle)',
+                  boxShadow: plan.popular ? '0 0 40px rgba(59,130,246,0.08)' : 'none',
+                }}
+              >
+                {plan.popular && (
+                  <div
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold text-white"
+                    style={{ background: 'var(--accent)' }}
+                  >
+                    Most Popular
+                  </div>
                 )}
-                <h3 className="text-lg font-bold text-gray-900 mb-1">{p.plan}</h3>
+                <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-gray-900">{p.price}</span>
-                  <span className="text-gray-400">{p.period}</span>
+                  <span className="text-4xl font-extrabold" style={{ color: 'var(--text-primary)' }}>{plan.price}</span>
+                  <span style={{ color: 'var(--text-tertiary)' }}>{plan.period}</span>
                 </div>
                 <ul className="space-y-3 mb-8">
-                  {p.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm text-gray-600">
-                      <svg width="18" height="18" viewBox="0 0 20 20" fill="#00288e"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                      <div className="w-4 h-4 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--accent-muted)' }}>
+                        <Check size={10} style={{ color: 'var(--accent)' }} strokeWidth={3} />
+                      </div>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <Link href="/signup" className={`block text-center py-3 rounded-lg font-semibold text-sm transition ${p.popular ? 'text-white shadow-lg shadow-blue-900/20' : 'border border-gray-200 text-gray-700 hover:bg-gray-50'}`} style={p.popular ? { background: 'var(--electric-blue)' } : {}}>
-                  {p.cta}
+                <Link
+                  href="/signup"
+                  className={plan.popular ? 'btn-primary w-full justify-center' : 'btn-ghost w-full justify-center'}
+                >
+                  Start Free Trial
                 </Link>
               </div>
             ))}
@@ -276,31 +509,45 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center p-12 sm:p-16 rounded-3xl" style={{ background: 'var(--electric-blue)' }}>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to grow your business?</h2>
-          <p className="text-blue-200 text-lg mb-10 max-w-xl mx-auto">Join hundreds of detailing businesses using Mobiliq to streamline operations and impress customers.</p>
-          <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white font-semibold text-base transition hover:bg-blue-50" style={{ color: 'var(--electric-blue)' }}>
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 70%)' }}
+        />
+        <div className="relative max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-5" style={{ color: 'var(--text-primary)' }}>
+            Ready to grow your{' '}
+            <span className="gradient-text">detailing business</span>?
+          </h2>
+          <p className="text-base sm:text-lg mb-10 max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+            Join hundreds of detailing businesses using Mobiliq to streamline operations and impress customers.
+          </p>
+          <Link href="/signup" className="btn-primary px-10 py-3.5 text-base">
             Start Your Free Trial
-            <svg className="ml-2" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            <ArrowRight size={16} strokeWidth={2.5} />
           </Link>
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="border-t border-gray-100 py-12 px-6">
+      <footer className="py-12 px-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs" style={{ background: 'var(--electric-blue)' }}>M</div>
-            <span className="font-bold text-gray-900">Mobiliq</span>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs"
+              style={{ background: 'var(--accent)' }}
+            >
+              M
+            </div>
+            <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Mobiliq</span>
           </div>
-          <div className="flex gap-8 text-sm text-gray-500">
-            <a href="#" className="hover:text-gray-900 transition">Privacy</a>
-            <a href="#" className="hover:text-gray-900 transition">Terms</a>
-            <a href="#" className="hover:text-gray-900 transition">Contact</a>
+          <div className="flex gap-8 text-sm">
+            <a href="#" className="transition" style={{ color: 'var(--text-tertiary)' }} onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-tertiary)'; }}>Privacy</a>
+            <a href="#" className="transition" style={{ color: 'var(--text-tertiary)' }} onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-tertiary)'; }}>Terms</a>
+            <a href="#" className="transition" style={{ color: 'var(--text-tertiary)' }} onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-tertiary)'; }}>Contact</a>
           </div>
-          <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Mobiliq. All rights reserved.</p>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            &copy; {new Date().getFullYear()} Mobiliq. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>

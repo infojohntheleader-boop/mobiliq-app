@@ -54,7 +54,7 @@ function SkeletonGridCard() {
     <div
       className="rounded-2xl p-6"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
       }}
     >
@@ -62,16 +62,16 @@ function SkeletonGridCard() {
       <div className="flex items-start justify-between mb-5">
         <div
           className="h-5 rounded-md w-32"
-          style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
+          style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
         />
         <div className="flex gap-1.5">
           <div
             className="h-8 w-8 rounded-lg"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out infinite' }}
           />
           <div
             className="h-8 w-8 rounded-lg"
-            style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.1s infinite' }}
+            style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.1s infinite' }}
           />
         </div>
       </div>
@@ -79,27 +79,27 @@ function SkeletonGridCard() {
       <div className="space-y-2 mb-5">
         <div
           className="h-3 rounded-md w-full"
-          style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.15s infinite' }}
+          style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.15s infinite' }}
         />
         <div
           className="h-3 rounded-md w-3/4"
-          style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.2s infinite' }}
+          style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.2s infinite' }}
         />
       </div>
       {/* Price skeleton */}
       <div
         className="h-8 rounded-lg w-24 mb-4"
-        style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.25s infinite' }}
+        style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.25s infinite' }}
       />
       {/* Duration + toggle skeleton */}
       <div className="flex items-center justify-between">
         <div
           className="h-5 rounded-full w-20"
-          style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.3s infinite' }}
+          style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.3s infinite' }}
         />
         <div
           className="h-6 rounded-full w-16"
-          style={{ background: 'var(--gray-100)', animation: 'pulse-soft 1.2s ease-in-out 0.35s infinite' }}
+          style={{ background: 'var(--bg-hover)', animation: 'pulse-soft 1.2s ease-in-out 0.35s infinite' }}
         />
       </div>
     </div>
@@ -120,20 +120,20 @@ function EmptyServicesState({ onAdd }: { onAdd: () => void }) {
         style={{
           width: 80,
           height: 80,
-          background: 'var(--gray-100)',
+          background: 'var(--bg-hover)',
         }}
       >
-        <Sparkles size={36} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
+        <Sparkles size={36} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
       </div>
       <h3
         className="text-[17px] font-semibold mb-2"
-        style={{ color: 'var(--gray-700)' }}
+        style={{ color: 'var(--text-secondary)' }}
       >
         No services yet
       </h3>
       <p
         className="text-[14px] max-w-xs text-center mb-6"
-        style={{ color: 'var(--gray-400)' }}
+        style={{ color: 'var(--text-muted)' }}
       >
         Create your first service to start accepting bookings.
       </p>
@@ -141,15 +141,15 @@ function EmptyServicesState({ onAdd }: { onAdd: () => void }) {
         onClick={onAdd}
         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13.5px] font-semibold text-white transition-all duration-150"
         style={{
-          background: 'var(--electric-blue)',
-          boxShadow: 'var(--shadow-glow-blue)',
+          background: 'var(--accent)',
+          boxShadow: 'var(--shadow-glow)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'var(--electric-blue-hover)';
+          e.currentTarget.style.background = 'var(--accent-hover)';
           e.currentTarget.style.transform = 'translateY(-1px)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'var(--electric-blue)';
+          e.currentTarget.style.background = 'var(--accent)';
           e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
@@ -178,7 +178,7 @@ function ServiceGridCard({
     <div
       className="rounded-2xl p-6 transition-all duration-200 relative group"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
         animation: 'fadeIn 0.35s ease-out both',
         opacity: service.isActive ? 1 : 0.6,
@@ -196,7 +196,7 @@ function ServiceGridCard({
       <div className="flex items-start justify-between mb-3">
         <h3
           className="text-[17px] font-bold tracking-tight pr-4"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           {service.name}
         </h3>
@@ -208,16 +208,16 @@ function ServiceGridCard({
             onClick={() => onEdit(service)}
             className="flex items-center justify-center w-8 h-8 rounded-xl transition-all duration-150"
             style={{
-              color: 'var(--gray-400)',
+              color: 'var(--text-muted)',
               background: 'transparent',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--gray-100)';
-              e.currentTarget.style.color = 'var(--gray-700)';
+              e.currentTarget.style.background = 'var(--border-subtle)';
+              e.currentTarget.style.color = 'var(--text-secondary)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = 'var(--gray-400)';
+              e.currentTarget.style.color = 'var(--text-muted)';
             }}
             title="Edit service"
             aria-label="Edit service"
@@ -230,16 +230,16 @@ function ServiceGridCard({
             }}
             className="flex items-center justify-center w-8 h-8 rounded-xl transition-all duration-150"
             style={{
-              color: 'var(--gray-400)',
+              color: 'var(--text-muted)',
               background: 'transparent',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--rose-light)';
+              e.currentTarget.style.background = 'var(--rose-muted)';
               e.currentTarget.style.color = 'var(--rose)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = 'var(--gray-400)';
+              e.currentTarget.style.color = 'var(--text-muted)';
             }}
             title="Delete service"
             aria-label="Delete service"
@@ -252,7 +252,7 @@ function ServiceGridCard({
       {/* Description */}
       <p
         className="text-[13px] leading-relaxed mb-5 line-clamp-2"
-        style={{ color: 'var(--gray-500)' }}
+        style={{ color: 'var(--text-tertiary)' }}
       >
         {service.description || 'No description provided'}
       </p>
@@ -261,7 +261,7 @@ function ServiceGridCard({
       <div className="mb-5">
         <span
           className="text-[26px] font-bold tabular-nums"
-          style={{ color: 'var(--electric-blue)' }}
+          style={{ color: 'var(--accent)' }}
         >
           ${Number(service.price).toFixed(2)}
         </span>
@@ -270,8 +270,8 @@ function ServiceGridCard({
       {/* Duration + Active/Inactive Toggle */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1.5">
-          <Clock size={13} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-          <span className="text-[12.5px] font-medium" style={{ color: 'var(--gray-500)' }}>
+          <Clock size={13} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+          <span className="text-[12.5px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
             {service.duration} min
           </span>
         </div>
@@ -279,8 +279,8 @@ function ServiceGridCard({
           onClick={() => onToggle(service)}
           className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11.5px] font-semibold transition-all duration-150"
           style={{
-            background: service.isActive ? 'var(--emerald-light)' : 'var(--gray-100)',
-            color: service.isActive ? 'var(--emerald)' : 'var(--gray-400)',
+            background: service.isActive ? 'var(--emerald-muted)' : 'var(--border-subtle)',
+            color: service.isActive ? 'var(--emerald)' : 'var(--text-muted)',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.filter = 'brightness(0.95)';
@@ -292,7 +292,7 @@ function ServiceGridCard({
           <span
             className="w-1.5 h-1.5 rounded-full"
             style={{
-              background: service.isActive ? 'var(--emerald)' : 'var(--gray-400)',
+              background: service.isActive ? 'var(--emerald)' : 'var(--text-muted)',
             }}
           />
           {service.isActive ? 'Active' : 'Inactive'}
@@ -303,11 +303,11 @@ function ServiceGridCard({
       {service.addons && service.addons.length > 0 && (
         <div
           className="pt-4"
-          style={{ borderTop: '1px solid var(--gray-100)' }}
+          style={{ borderTop: '1px solid var(--border-subtle)' }}
         >
           <p
             className="text-[11px] font-semibold uppercase tracking-wider mb-2.5"
-            style={{ color: 'var(--gray-400)' }}
+            style={{ color: 'var(--text-muted)' }}
           >
             Add-ons
           </p>
@@ -317,14 +317,14 @@ function ServiceGridCard({
                 key={addon.id}
                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11.5px] font-medium"
                 style={{
-                  background: 'var(--gray-50)',
-                  color: 'var(--gray-600)',
-                  border: '1px solid var(--gray-200)',
+                  background: 'var(--bg-secondary)',
+                  color: 'var(--text-tertiary)',
+                  border: '1px solid var(--border)',
                 }}
               >
                 <Tag size={10} strokeWidth={1.8} />
                 {addon.name}
-                <span style={{ color: 'var(--electric-blue)' }}>
+                <span style={{ color: 'var(--accent)' }}>
                   +${Number(addon.price).toFixed(2)}
                 </span>
               </span>
@@ -403,7 +403,7 @@ function ServiceModal({
       <div
         className="relative w-full max-w-lg rounded-2xl overflow-hidden"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-xl)',
           animation: 'fadeIn 0.25s ease-out 0.05s both',
         }}
@@ -411,20 +411,20 @@ function ServiceModal({
         {/* Header */}
         <div
           className="flex items-center justify-between px-6 py-4"
-          style={{ borderBottom: '1px solid var(--gray-100)' }}
+          style={{ borderBottom: '1px solid var(--border-subtle)' }}
         >
           <h3
             className="text-[16px] font-semibold"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             {mode === 'create' ? 'New Service' : 'Edit Service'}
           </h3>
           <button
             onClick={onClose}
             className="flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-100"
-            style={{ color: 'var(--gray-400)' }}
+            style={{ color: 'var(--text-muted)' }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--gray-100)';
+              e.currentTarget.style.background = 'var(--border-subtle)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'transparent';
@@ -442,7 +442,7 @@ function ServiceModal({
               <div
                 className="px-3.5 py-2.5 rounded-xl text-[13px] font-medium"
                 style={{
-                  background: 'var(--rose-light)',
+                  background: 'var(--rose-muted)',
                   color: 'var(--rose)',
                   border: '1px solid rgba(225,29,72,0.15)',
                 }}
@@ -455,7 +455,7 @@ function ServiceModal({
             <div>
               <label
                 className="block text-[12.5px] font-semibold mb-1.5 uppercase tracking-wider"
-                style={{ color: 'var(--gray-500)' }}
+                style={{ color: 'var(--text-tertiary)' }}
               >
                 Service Name *
               </label>
@@ -472,7 +472,7 @@ function ServiceModal({
             <div>
               <label
                 className="block text-[12.5px] font-semibold mb-1.5 uppercase tracking-wider"
-                style={{ color: 'var(--gray-500)' }}
+                style={{ color: 'var(--text-tertiary)' }}
               >
                 Description
               </label>
@@ -490,7 +490,7 @@ function ServiceModal({
               <div>
                 <label
                   className="flex items-center gap-1.5 text-[12.5px] font-semibold mb-1.5 uppercase tracking-wider"
-                  style={{ color: 'var(--gray-500)' }}
+                  style={{ color: 'var(--text-tertiary)' }}
                 >
                   <CircleDollarSign size={12} strokeWidth={2} />
                   Price ($) *
@@ -508,7 +508,7 @@ function ServiceModal({
               <div>
                 <label
                   className="flex items-center gap-1.5 text-[12.5px] font-semibold mb-1.5 uppercase tracking-wider"
-                  style={{ color: 'var(--gray-500)' }}
+                  style={{ color: 'var(--text-tertiary)' }}
                 >
                   <Clock size={12} strokeWidth={2} />
                   Duration (min) *
@@ -529,24 +529,24 @@ function ServiceModal({
           {/* Footer */}
           <div
             className="flex items-center justify-end gap-2.5 px-6 py-4"
-            style={{ borderTop: '1px solid var(--gray-100)' }}
+            style={{ borderTop: '1px solid var(--border-subtle)' }}
           >
             <button
               type="button"
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-[13px] font-medium transition-all duration-150"
               style={{
-                color: 'var(--gray-600)',
+                color: 'var(--text-tertiary)',
                 background: 'transparent',
-                border: '1.5px solid var(--gray-200)',
+                border: '1.5px solid var(--border)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--gray-50)';
-                e.currentTarget.style.borderColor = 'var(--gray-300)';
+                e.currentTarget.style.background = 'var(--bg-secondary)';
+                e.currentTarget.style.borderColor = 'var(--text-muted)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.borderColor = 'var(--gray-200)';
+                e.currentTarget.style.borderColor = 'var(--border)';
               }}
             >
               Cancel
@@ -556,8 +556,8 @@ function ServiceModal({
               disabled={saving}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-[13px] font-semibold text-white transition-all duration-150"
               style={{
-                background: saving ? 'var(--gray-300)' : 'var(--electric-blue)',
-                boxShadow: saving ? 'none' : 'var(--shadow-glow-blue)',
+                background: saving ? 'var(--text-muted)' : 'var(--accent)',
+                boxShadow: saving ? 'none' : 'var(--shadow-glow)',
                 cursor: saving ? 'not-allowed' : 'pointer',
               }}
             >
@@ -573,15 +573,15 @@ function ServiceModal({
         <div
           className="px-6 py-4"
           style={{
-            borderTop: '1px solid var(--gray-100)',
-            background: 'var(--gray-25)',
+            borderTop: '1px solid var(--border-subtle)',
+            background: 'var(--bg-tertiary)',
           }}
         >
           <button
             type="button"
             onClick={() => setShowAddonSection(!showAddonSection)}
             className="flex items-center gap-2 text-[13px] font-semibold w-full transition-colors duration-100"
-            style={{ color: 'var(--electric-blue)' }}
+            style={{ color: 'var(--accent)' }}
           >
             <PackagePlus size={15} strokeWidth={2} />
             {showAddonSection ? 'Hide Add-on Management' : 'Manage Add-ons'}
@@ -594,26 +594,26 @@ function ServiceModal({
                 onSubmit={handleAddAddon}
                 className="mb-4 p-4 rounded-xl"
                 style={{
-                  background: 'var(--white)',
-                  border: '1px solid var(--gray-200)',
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border)',
                 }}
               >
                 <p
                   className="text-[12px] font-semibold uppercase tracking-wider mb-3"
-                  style={{ color: 'var(--gray-500)' }}
+                  style={{ color: 'var(--text-tertiary)' }}
                 >
                   Add New Add-on
                 </p>
                 {mode === 'edit' && (
                   <div className="mb-3">
-                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--gray-500)' }}>
+                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--text-tertiary)' }}>
                       Service
                     </label>
                     <select
                       value={selectedAddonService}
                       onChange={(e) => setSelectedAddonService(e.target.value)}
                       required
-                      style={{ background: 'var(--white)' }}
+                      style={{ background: 'var(--bg-secondary)' }}
                     >
                       <option value="">Select a service...</option>
                       {services.map((s) => (
@@ -626,7 +626,7 @@ function ServiceModal({
                 )}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--gray-500)' }}>
+                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--text-tertiary)' }}>
                       Add-on Name
                     </label>
                     <input
@@ -638,7 +638,7 @@ function ServiceModal({
                     />
                   </div>
                   <div>
-                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--gray-500)' }}>
+                    <label className="block text-[12px] font-medium mb-1" style={{ color: 'var(--text-tertiary)' }}>
                       Price ($)
                     </label>
                     <input
@@ -657,7 +657,7 @@ function ServiceModal({
                   disabled={addonSaving || (mode === 'edit' && !selectedAddonService)}
                   className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-[12.5px] font-semibold text-white transition-all duration-150"
                   style={{
-                    background: addonSaving ? 'var(--gray-300)' : 'var(--electric-blue)',
+                    background: addonSaving ? 'var(--text-muted)' : 'var(--accent)',
                     cursor: addonSaving || (mode === 'edit' && !selectedAddonService) ? 'not-allowed' : 'pointer',
                   }}
                 >
@@ -671,7 +671,7 @@ function ServiceModal({
                 <div>
                   <p
                     className="text-[12px] font-semibold uppercase tracking-wider mb-2.5"
-                    style={{ color: 'var(--gray-500)' }}
+                    style={{ color: 'var(--text-tertiary)' }}
                   >
                     Existing Add-ons
                   </p>
@@ -682,32 +682,32 @@ function ServiceModal({
                           key={addon.id}
                           className="flex items-center justify-between px-3 py-2.5 rounded-lg"
                           style={{
-                            background: 'var(--white)',
-                            border: '1px solid var(--gray-100)',
+                            background: 'var(--bg-secondary)',
+                            border: '1px solid var(--border-subtle)',
                           }}
                         >
                           <div className="flex items-center gap-2 min-w-0">
-                            <Tag size={11} strokeWidth={1.8} style={{ color: 'var(--gray-400)', flexShrink: 0 }} />
-                            <span className="text-[12.5px] font-medium truncate" style={{ color: 'var(--gray-700)' }}>
+                            <Tag size={11} strokeWidth={1.8} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+                            <span className="text-[12.5px] font-medium truncate" style={{ color: 'var(--text-secondary)' }}>
                               {s.name} &mdash; {addon.name}
                             </span>
                           </div>
                           <div className="flex items-center gap-2 shrink-0 ml-2">
-                            <span className="text-[12.5px] font-bold tabular-nums" style={{ color: 'var(--electric-blue)' }}>
+                            <span className="text-[12.5px] font-bold tabular-nums" style={{ color: 'var(--accent)' }}>
                               ${Number(addon.price).toFixed(2)}
                             </span>
                             <button
                               type="button"
                               onClick={() => onDeleteAddon(addon.id)}
                               className="flex items-center justify-center w-6 h-6 rounded-md transition-colors duration-100"
-                              style={{ color: 'var(--gray-400)' }}
+                              style={{ color: 'var(--text-muted)' }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'var(--rose-light)';
+                                e.currentTarget.style.background = 'var(--rose-muted)';
                                 e.currentTarget.style.color = 'var(--rose)';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.background = 'transparent';
-                                e.currentTarget.style.color = 'var(--gray-400)';
+                                e.currentTarget.style.color = 'var(--text-muted)';
                               }}
                               aria-label="Delete add-on"
                             >
@@ -903,13 +903,13 @@ export default function ServicesPage() {
         <div>
           <h2
             className="text-[22px] md:text-[26px] font-bold tracking-tight"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             Services
           </h2>
           <p
             className="text-[13.5px] mt-1"
-            style={{ color: 'var(--gray-500)' }}
+            style={{ color: 'var(--text-tertiary)' }}
           >
             {services.length} service{services.length !== 1 ? 's' : ''} configured
           </p>
@@ -918,18 +918,18 @@ export default function ServicesPage() {
           onClick={openCreateModal}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13.5px] font-semibold text-white shrink-0 transition-all duration-150"
           style={{
-            background: 'var(--electric-blue)',
-            boxShadow: 'var(--shadow-glow-blue)',
+            background: 'var(--accent)',
+            boxShadow: 'var(--shadow-glow)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue-hover)';
+            e.currentTarget.style.background = 'var(--accent-hover)';
             e.currentTarget.style.transform = 'translateY(-1px)';
             e.currentTarget.style.boxShadow = '0 4px 24px rgba(37,99,235,0.25)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue)';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
           }}
         >
           <Plus size={16} strokeWidth={2} />

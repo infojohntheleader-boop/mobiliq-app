@@ -50,7 +50,7 @@ interface Customer {
 /*  Avatar Color Palette                                                */
 /* ================================================================== */
 const avatarColors = [
-  { bg: 'var(--electric-blue)', fg: 'var(--white)' },
+  { bg: 'var(--accent)', fg: 'var(--white)' },
   { bg: '#7c3aed', fg: 'var(--white)' },
   { bg: 'var(--emerald)', fg: 'var(--white)' },
   { bg: 'var(--amber)', fg: 'var(--white)' },
@@ -91,9 +91,9 @@ function CustomerSkeleton() {
     <div
       className="rounded-2xl p-5"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
       }}
     >
       <div className="flex items-start gap-4">
@@ -103,7 +103,7 @@ function CustomerSkeleton() {
           style={{
             width: 52,
             height: 52,
-            background: 'var(--gray-100)',
+            background: 'var(--bg-hover)',
             animation: 'pulse-soft 1.5s ease-in-out infinite',
           }}
         />
@@ -114,7 +114,7 @@ function CustomerSkeleton() {
             style={{
               width: '60%',
               height: 14,
-              background: 'var(--gray-100)',
+              background: 'var(--bg-hover)',
               animation: 'pulse-soft 1.5s ease-in-out infinite',
             }}
           />
@@ -123,7 +123,7 @@ function CustomerSkeleton() {
             style={{
               width: '80%',
               height: 12,
-              background: 'var(--gray-100)',
+              background: 'var(--bg-hover)',
               animation: 'pulse-soft 1.5s ease-in-out infinite 0.1s',
             }}
           />
@@ -136,7 +136,7 @@ function CustomerSkeleton() {
                 style={{
                   width: 60,
                   height: 10,
-                  background: 'var(--gray-100)',
+                  background: 'var(--bg-hover)',
                   animation: `pulse-soft 1.5s ease-in-out infinite ${i * 0.15}s`,
                 }}
               />
@@ -165,19 +165,19 @@ function CustomerCard({
     <div
       className="customer-card rounded-2xl p-5 cursor-pointer group"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
         transition: 'all 0.2s ease',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = 'var(--shadow-md)';
-        e.currentTarget.style.borderColor = 'var(--electric-blue-muted)';
+        e.currentTarget.style.borderColor = 'var(--accent-muted)';
         e.currentTarget.style.transform = 'translateY(-2px)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
-        e.currentTarget.style.borderColor = 'var(--gray-100)';
+        e.currentTarget.style.borderColor = 'var(--border-subtle)';
         e.currentTarget.style.transform = 'translateY(0)';
       }}
       role="button"
@@ -207,17 +207,17 @@ function CustomerCard({
           {/* Name */}
           <h3
             className="text-[15px] font-semibold truncate"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             {customer.name}
           </h3>
 
           {/* Email */}
           <div className="flex items-center gap-1.5 mt-0.5">
-            <Mail size={12} strokeWidth={1.8} style={{ color: 'var(--gray-400)', flexShrink: 0 }} />
+            <Mail size={12} strokeWidth={1.8} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
             <span
               className="text-[12.5px] truncate"
-              style={{ color: 'var(--gray-500)' }}
+              style={{ color: 'var(--text-tertiary)' }}
             >
               {customer.email}
             </span>
@@ -226,31 +226,31 @@ function CustomerCard({
           {/* Stats row */}
           <div className="flex items-center gap-4 mt-3">
             <div className="flex items-center gap-1.5">
-              <CalendarDays size={12.5} strokeWidth={1.8} style={{ color: 'var(--electric-blue)' }} />
-              <span className="text-[12px] font-medium" style={{ color: 'var(--gray-600)' }}>
+              <CalendarDays size={12.5} strokeWidth={1.8} style={{ color: 'var(--accent)' }} />
+              <span className="text-[12px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 {customer.totalBookings} {customer.totalBookings === 1 ? 'booking' : 'bookings'}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
               <DollarSign size={12.5} strokeWidth={1.8} style={{ color: 'var(--emerald)' }} />
-              <span className="text-[12px] font-medium" style={{ color: 'var(--gray-600)' }}>
+              <span className="text-[12px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 {formatCurrency(customer.totalSpent)}
               </span>
             </div>
           </div>
 
           {/* Vehicle count + Last visit row */}
-          <div className="flex items-center justify-between mt-2.5 pt-2.5" style={{ borderTop: '1px solid var(--gray-100)' }}>
+          <div className="flex items-center justify-between mt-2.5 pt-2.5" style={{ borderTop: '1px solid var(--border-subtle)' }}>
             <div className="flex items-center gap-1.5">
-              <Car size={12.5} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-              <span className="text-[11.5px] font-medium" style={{ color: 'var(--gray-500)' }}>
+              <Car size={12.5} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+              <span className="text-[11.5px] font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 {vehicleCount} {vehicleCount === 1 ? 'vehicle' : 'vehicles'}
               </span>
             </div>
             {customer.lastVisit && (
               <div className="flex items-center gap-1.5">
-                <Clock size={11} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-                <span className="text-[11px]" style={{ color: 'var(--gray-400)' }}>
+                <Clock size={11} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+                <span className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
                   {formatDate(customer.lastVisit)}
                 </span>
               </div>
@@ -264,7 +264,7 @@ function CustomerCard({
           style={{
             width: 28,
             height: 28,
-            color: 'var(--gray-400)',
+            color: 'var(--text-muted)',
             transition: 'all 0.15s ease',
           }}
         >
@@ -283,8 +283,8 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
     <div
       className="flex flex-col items-center justify-center rounded-2xl py-20 px-8 text-center"
       style={{
-        background: 'var(--white)',
-        border: '1.5px dashed var(--gray-200)',
+        background: 'var(--bg-secondary)',
+        border: '1.5px dashed var(--border)',
       }}
     >
       <div
@@ -292,24 +292,24 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
         style={{
           width: 64,
           height: 64,
-          background: hasSearch ? 'var(--gray-100)' : 'var(--electric-blue-light)',
+          background: hasSearch ? 'var(--border-subtle)' : 'var(--accent-muted)',
         }}
       >
         {hasSearch ? (
-          <Inbox size={28} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
+          <Inbox size={28} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
         ) : (
-          <Users size={28} strokeWidth={1.5} style={{ color: 'var(--electric-blue)' }} />
+          <Users size={28} strokeWidth={1.5} style={{ color: 'var(--accent)' }} />
         )}
       </div>
       <h3
         className="text-base font-semibold mb-1"
-        style={{ color: 'var(--gray-700)' }}
+        style={{ color: 'var(--text-secondary)' }}
       >
         {hasSearch ? 'No customers found' : 'No customers yet'}
       </h3>
       <p
         className="text-sm max-w-xs"
-        style={{ color: 'var(--gray-400)' }}
+        style={{ color: 'var(--text-muted)' }}
       >
         {hasSearch
           ? 'Try adjusting your search query to find what you\'re looking for.'
@@ -319,17 +319,17 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
         <button
           className="flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer"
           style={{
-            background: 'var(--electric-blue)',
+            background: 'var(--accent)',
             boxShadow: 'var(--shadow-sm)',
             transition: 'all 0.15s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue-hover)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+            e.currentTarget.style.background = 'var(--accent-hover)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
             e.currentTarget.style.transform = 'translateY(-1px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue)';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             e.currentTarget.style.transform = 'translateY(0)';
           }}
@@ -460,21 +460,21 @@ export default function CustomersPage() {
         .customers-search-input {
           font-family: inherit;
           font-size: 14px;
-          background: var(--white);
-          border: 1.5px solid var(--gray-200);
+          background: var(--bg-secondary);
+          border: 1.5px solid var(--border);
           border-radius: var(--radius-md);
           padding: 10px 14px 10px 40px;
-          color: var(--gray-800);
+          color: var(--text-secondary);
           outline: none;
           transition: all 0.15s ease;
           width: 100%;
         }
         .customers-search-input:focus {
-          border-color: var(--electric-blue);
+          border-color: var(--accent);
           box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
         }
         .customers-search-input::placeholder {
-          color: var(--gray-400);
+          color: var(--text-muted);
         }
 
         .add-customer-btn {
@@ -483,7 +483,7 @@ export default function CustomersPage() {
           gap: 8px;
           padding: 10px 20px;
           border-radius: var(--radius-md);
-          background: var(--electric-blue);
+          background: var(--accent);
           color: var(--white);
           font-size: 13.5px;
           font-weight: 600;
@@ -493,8 +493,8 @@ export default function CustomersPage() {
           transition: all 0.15s ease;
         }
         .add-customer-btn:hover {
-          background: var(--electric-blue-hover);
-          box-shadow: var(--shadow-glow-blue);
+          background: var(--accent-hover);
+          box-shadow: var(--shadow-glow);
           transform: translateY(-1px);
         }
         .add-customer-btn:active {
@@ -502,11 +502,11 @@ export default function CustomersPage() {
         }
 
         .stat-card {
-          background: var(--white);
+          background: var(--bg-secondary);
           border-radius: var(--radius-lg);
           padding: 20px;
           box-shadow: var(--shadow-sm);
-          border: 1px solid var(--gray-100);
+          border: 1px solid var(--border-subtle);
           transition: box-shadow 0.15s ease;
         }
         .stat-card:hover {
@@ -534,13 +534,13 @@ export default function CustomersPage() {
       <div>
         <h2
           className="text-2xl font-bold tracking-tight"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           Customers
         </h2>
         <p
           className="text-sm mt-0.5"
-          style={{ color: 'var(--gray-500)' }}
+          style={{ color: 'var(--text-tertiary)' }}
         >
           Manage your customer relationships and view booking history
         </p>
@@ -558,16 +558,16 @@ export default function CustomersPage() {
                 style={{
                   width: 36,
                   height: 36,
-                  background: 'var(--electric-blue-light)',
+                  background: 'var(--accent-muted)',
                 }}
               >
-                <Users size={16} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+                <Users size={16} strokeWidth={2} style={{ color: 'var(--accent)' }} />
               </div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
                 Total Customers
               </p>
             </div>
-            <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
               {totalCustomers}
             </p>
           </div>
@@ -579,16 +579,16 @@ export default function CustomersPage() {
                 style={{
                   width: 36,
                   height: 36,
-                  background: 'var(--emerald-light)',
+                  background: 'var(--emerald-muted)',
                 }}
               >
                 <DollarSign size={16} strokeWidth={2} style={{ color: 'var(--emerald)' }} />
               </div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
                 Lifetime Revenue
               </p>
             </div>
-            <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
               {formatCurrency(totalRevenue)}
             </p>
           </div>
@@ -600,16 +600,16 @@ export default function CustomersPage() {
                 style={{
                   width: 36,
                   height: 36,
-                  background: 'var(--violet-light)',
+                  background: 'var(--violet-muted)',
                 }}
               >
                 <CalendarDays size={16} strokeWidth={2} style={{ color: 'var(--violet)' }} />
               </div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
                 Avg. Spend
               </p>
             </div>
-            <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
               {formatCurrency(avgSpend)}
             </p>
           </div>
@@ -625,7 +625,7 @@ export default function CustomersPage() {
             size={16}
             strokeWidth={1.8}
             className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-            style={{ color: 'var(--gray-400)' }}
+            style={{ color: 'var(--text-muted)' }}
           />
           <input
             type="text"
@@ -650,7 +650,7 @@ export default function CustomersPage() {
         <div
           className="flex flex-col items-center justify-center rounded-2xl py-16 px-8 text-center"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             border: '1.5px dashed var(--rose)',
           }}
         >
@@ -659,7 +659,7 @@ export default function CustomersPage() {
             style={{
               width: 56,
               height: 56,
-              background: 'var(--rose-light)',
+              background: 'var(--rose-muted)',
             }}
           >
             <Inbox size={24} strokeWidth={1.5} style={{ color: 'var(--rose)' }} />
@@ -667,7 +667,7 @@ export default function CustomersPage() {
           <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--rose)' }}>
             Failed to load customers
           </h3>
-          <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             {error}
           </p>
         </div>
@@ -685,7 +685,7 @@ export default function CustomersPage() {
       {/* Customer grid */}
       {!loading && !error && filteredCustomers.length > 0 && (
         <>
-          <p className="text-xs font-medium" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
             {filteredCustomers.length} {filteredCustomers.length === 1 ? 'customer' : 'customers'}
             {searchQuery.trim() && ` matching "${searchQuery.trim()}"`}
           </p>

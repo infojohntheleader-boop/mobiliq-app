@@ -44,42 +44,42 @@ const statusConfig: Record<
 > = {
   pending: {
     label: 'Pending',
-    pillBg: 'var(--electric-blue-light)',
-    pillText: 'var(--electric-blue)',
+    pillBg: 'var(--accent-muted)',
+    pillText: 'var(--accent)',
     dotColor: '#2563eb',
-    badgeBg: 'var(--electric-blue-light)',
-    badgeText: 'var(--electric-blue)',
+    badgeBg: 'var(--accent-muted)',
+    badgeText: 'var(--accent)',
   },
   confirmed: {
     label: 'Confirmed',
-    pillBg: 'var(--emerald-light)',
+    pillBg: 'var(--emerald-muted)',
     pillText: 'var(--emerald)',
     dotColor: '#059669',
-    badgeBg: 'var(--emerald-light)',
+    badgeBg: 'var(--emerald-muted)',
     badgeText: 'var(--emerald)',
   },
   'in-progress': {
     label: 'In Progress',
-    pillBg: 'var(--amber-light)',
+    pillBg: 'var(--amber-muted)',
     pillText: 'var(--amber)',
     dotColor: '#d97706',
-    badgeBg: 'var(--amber-light)',
+    badgeBg: 'var(--amber-muted)',
     badgeText: 'var(--amber)',
   },
   completed: {
     label: 'Completed',
-    pillBg: 'var(--gray-100)',
-    pillText: 'var(--gray-600)',
+    pillBg: 'var(--bg-hover)',
+    pillText: 'var(--text-tertiary)',
     dotColor: '#868e96',
-    badgeBg: 'var(--gray-100)',
-    badgeText: 'var(--gray-600)',
+    badgeBg: 'var(--bg-hover)',
+    badgeText: 'var(--text-tertiary)',
   },
   cancelled: {
     label: 'Cancelled',
-    pillBg: 'var(--rose-light)',
+    pillBg: 'var(--rose-muted)',
     pillText: 'var(--rose)',
     dotColor: '#e11d48',
-    badgeBg: 'var(--rose-light)',
+    badgeBg: 'var(--rose-muted)',
     badgeText: 'var(--rose)',
   },
 };
@@ -416,20 +416,20 @@ export default function CalendarPage() {
           position: relative;
           min-height: 100px;
           padding: 6px;
-          background: var(--white);
+          background: var(--bg-secondary);
           cursor: pointer;
           transition: box-shadow 0.15s ease, border-color 0.15s ease;
           border: 1.5px solid transparent;
         }
         .cal-cell:hover {
-          border-color: var(--electric-blue);
-          box-shadow: var(--shadow-glow-blue);
+          border-color: var(--accent);
+          box-shadow: var(--shadow-glow);
           z-index: 2;
         }
         .cal-cell.cal-cell-selected {
-          border-color: var(--electric-blue);
-          background: var(--electric-blue-light);
-          box-shadow: var(--shadow-glow-blue);
+          border-color: var(--accent);
+          background: var(--accent-muted);
+          box-shadow: var(--shadow-glow);
           z-index: 2;
         }
         .cal-cell.cal-cell-dimmed {
@@ -441,11 +441,11 @@ export default function CalendarPage() {
           font-size: 13px;
           font-weight: 500;
           line-height: 1;
-          color: var(--gray-700);
+          color: var(--text-secondary);
           margin-bottom: 4px;
         }
         .cal-cell-today .cal-day-num {
-          color: var(--electric-blue);
+          color: var(--accent);
           font-weight: 700;
         }
 
@@ -457,7 +457,7 @@ export default function CalendarPage() {
           width: 26px;
           height: 26px;
           border-radius: 50%;
-          background: var(--electric-blue);
+          background: var(--accent);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -494,12 +494,12 @@ export default function CalendarPage() {
         .cal-more {
           font-size: 10.5px;
           font-weight: 600;
-          color: var(--gray-500);
+          color: var(--text-tertiary);
           padding: 1px 6px;
           cursor: pointer;
         }
         .cal-more:hover {
-          color: var(--electric-blue);
+          color: var(--accent);
         }
 
         /* --- Weekday header --- */
@@ -509,7 +509,7 @@ export default function CalendarPage() {
           font-weight: 600;
           letter-spacing: 0.05em;
           text-transform: uppercase;
-          color: var(--gray-400);
+          color: var(--text-muted);
           padding: 8px 0;
         }
 
@@ -517,7 +517,7 @@ export default function CalendarPage() {
         .cal-sidebar {
           width: 360px;
           flex-shrink: 0;
-          background: var(--white);
+          background: var(--bg-secondary);
           border-radius: var(--radius-lg);
           box-shadow: var(--shadow-md);
           overflow-y: auto;
@@ -530,7 +530,7 @@ export default function CalendarPage() {
         .detail-card {
           padding: 16px;
           border-radius: var(--radius-md);
-          background: var(--gray-50);
+          background: var(--bg-secondary);
           margin-bottom: 10px;
           transition: box-shadow 0.15s ease;
         }
@@ -562,16 +562,16 @@ export default function CalendarPage() {
           width: 36px;
           height: 36px;
           border-radius: 10px;
-          border: 1.5px solid var(--gray-200);
-          background: var(--white);
-          color: var(--gray-600);
+          border: 1.5px solid var(--border);
+          background: var(--bg-secondary);
+          color: var(--text-tertiary);
           cursor: pointer;
           transition: all 0.15s ease;
         }
         .cal-nav-btn:hover {
-          border-color: var(--electric-blue);
-          color: var(--electric-blue);
-          box-shadow: var(--shadow-glow-blue);
+          border-color: var(--accent);
+          color: var(--accent);
+          box-shadow: var(--shadow-glow);
         }
 
         .cal-today-btn {
@@ -580,18 +580,18 @@ export default function CalendarPage() {
           gap: 6px;
           padding: 7px 16px;
           border-radius: 10px;
-          border: 1.5px solid var(--electric-blue);
-          background: var(--white);
-          color: var(--electric-blue);
+          border: 1.5px solid var(--accent);
+          background: var(--bg-secondary);
+          color: var(--accent);
           font-size: 13px;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.15s ease;
         }
         .cal-today-btn:hover {
-          background: var(--electric-blue);
+          background: var(--accent);
           color: var(--white);
-          box-shadow: var(--shadow-glow-blue);
+          box-shadow: var(--shadow-glow);
         }
 
         /* --- Month transition animation --- */
@@ -620,7 +620,7 @@ export default function CalendarPage() {
           left: 0;
           right: 0;
           max-height: 70vh;
-          background: var(--white);
+          background: var(--bg-secondary);
           border-radius: var(--radius-xl) var(--radius-xl) 0 0;
           box-shadow: var(--shadow-xl);
           z-index: 61;
@@ -637,7 +637,7 @@ export default function CalendarPage() {
           width: 36px;
           height: 4px;
           border-radius: 2px;
-          background: var(--gray-300);
+          background: var(--text-muted);
           margin: 10px auto 0;
         }
 
@@ -674,13 +674,13 @@ export default function CalendarPage() {
         <div>
           <h2
             className="text-2xl font-bold tracking-tight"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             Calendar
           </h2>
           <p
             className="text-sm mt-0.5"
-            style={{ color: 'var(--gray-500)' }}
+            style={{ color: 'var(--text-tertiary)' }}
           >
             Manage your appointments and schedule
           </p>
@@ -694,10 +694,10 @@ export default function CalendarPage() {
           <div className="text-center min-w-[180px]">
             <span
               className="text-lg font-semibold tracking-tight"
-              style={{ color: 'var(--gray-900)' }}
+              style={{ color: 'var(--text-primary)' }}
             >
               {MONTH_NAMES[currentMonth]}{' '}
-              <span style={{ color: 'var(--gray-500)' }}>{currentYear}</span>
+              <span style={{ color: 'var(--text-tertiary)' }}>{currentYear}</span>
             </span>
           </div>
           <button className="cal-nav-btn" onClick={() => navigateMonth(1)} aria-label="Next month">
@@ -721,14 +721,14 @@ export default function CalendarPage() {
           {/* Weekday headers */}
           <div className="cal-grid" style={{ marginBottom: 1 }}>
             {WEEKDAYS.map((wd) => (
-              <div key={wd} className="cal-weekday" style={{ background: 'var(--gray-50)', borderRadius: 'var(--radius-sm) var(--radius-sm) 0 0' }}>
+              <div key={wd} className="cal-weekday" style={{ background: 'var(--bg-secondary)', borderRadius: 'var(--radius-sm) var(--radius-sm) 0 0' }}>
                 {wd}
               </div>
             ))}
           </div>
 
           {/* Calendar cells */}
-          <div className="cal-grid" style={{ borderRadius: '0 0 var(--radius-lg) var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--gray-200)' }}>
+          <div className="cal-grid" style={{ borderRadius: '0 0 var(--radius-lg) var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--border)' }}>
             {calendarCells.map((cell, idx) => {
               const dayAppointments = cell.isCurrentMonth ? appointmentsByDay[cell.day] || [] : [];
               const isToday = cell.isCurrentMonth && cell.day === todayDate && currentMonth === todayMonth && currentYear === todayYear;
@@ -812,11 +812,11 @@ export default function CalendarPage() {
               style={{ minHeight: 300 }}
             >
               <div className="cal-empty">
-                <CalendarDays size={40} strokeWidth={1.2} style={{ color: 'var(--gray-300)', marginBottom: 12 }} />
-                <p className="text-sm font-medium" style={{ color: 'var(--gray-500)' }}>
+                <CalendarDays size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 12 }} />
+                <p className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
                   Select a day
                 </p>
-                <p className="text-xs mt-1" style={{ color: 'var(--gray-400)' }}>
+                <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
                   Click on any day to view appointment details
                 </p>
               </div>
@@ -846,13 +846,13 @@ export default function CalendarPage() {
               <div className="flex items-center justify-between mb-4">
                 <h3
                   className="text-lg font-bold"
-                  style={{ color: 'var(--gray-900)' }}
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   {formatDate(selectedDay, currentMonth, currentYear)}
                 </h3>
                 <button
                   className="p-2 rounded-lg"
-                  style={{ color: 'var(--gray-400)' }}
+                  style={{ color: 'var(--text-muted)' }}
                   onClick={() => {
                     setSidebarOpen(false);
                     setSelectedDay(null);
@@ -865,11 +865,11 @@ export default function CalendarPage() {
 
               {selectedAppointments.length === 0 ? (
                 <div className="cal-empty" style={{ padding: '32px 16px' }}>
-                  <CalendarDays size={32} strokeWidth={1.2} style={{ color: 'var(--gray-300)', marginBottom: 10 }} />
-                  <p className="text-sm font-medium" style={{ color: 'var(--gray-500)' }}>
+                  <CalendarDays size={32} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
                     No appointments
                   </p>
-                  <p className="text-xs mt-1" style={{ color: 'var(--gray-400)' }}>
+                  <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
                     This day is free from scheduled work
                   </p>
                 </div>
@@ -910,22 +910,22 @@ function SelectedDayPanel({
       <div className="flex items-center justify-between mb-1">
         <h3
           className="text-base font-bold tracking-tight"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           Selected Day
         </h3>
         <button
           className="p-1.5 rounded-lg"
-          style={{ color: 'var(--gray-400)' }}
+          style={{ color: 'var(--text-muted)' }}
           onClick={onClose}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--gray-100)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--border-subtle)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
           aria-label="Close panel"
         >
           <X size={16} strokeWidth={2} />
         </button>
       </div>
-      <p className="text-sm mb-4" style={{ color: 'var(--gray-500)' }}>
+      <p className="text-sm mb-4" style={{ color: 'var(--text-tertiary)' }}>
         {formatDate(day, month, year)}
       </p>
 
@@ -936,18 +936,18 @@ function SelectedDayPanel({
         >
           <div
             className="flex-1 rounded-xl p-3 text-center"
-            style={{ background: 'var(--electric-blue-light)' }}
+            style={{ background: 'var(--accent-muted)' }}
           >
-            <p className="text-xl font-bold" style={{ color: 'var(--electric-blue)' }}>
+            <p className="text-xl font-bold" style={{ color: 'var(--accent)' }}>
               {appointments.length}
             </p>
-            <p className="text-[11px] font-medium" style={{ color: 'var(--electric-blue)' }}>
+            <p className="text-[11px] font-medium" style={{ color: 'var(--accent)' }}>
               Appointments
             </p>
           </div>
           <div
             className="flex-1 rounded-xl p-3 text-center"
-            style={{ background: 'var(--emerald-light)' }}
+            style={{ background: 'var(--emerald-muted)' }}
           >
             <p className="text-xl font-bold" style={{ color: 'var(--emerald)' }}>
               ${totalRevenue}
@@ -962,11 +962,11 @@ function SelectedDayPanel({
       {/* Appointment list */}
       {appointments.length === 0 ? (
         <div className="cal-empty" style={{ padding: '32px 16px' }}>
-          <CalendarDays size={32} strokeWidth={1.2} style={{ color: 'var(--gray-300)', marginBottom: 10 }} />
-          <p className="text-sm font-medium" style={{ color: 'var(--gray-500)' }}>
+          <CalendarDays size={32} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
+          <p className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
             No appointments scheduled
           </p>
-          <p className="text-xs mt-1" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
             This day is free from bookings
           </p>
         </div>
@@ -990,8 +990,8 @@ function AppointmentDetailCard({ appointment }: { appointment: Appointment }) {
       {/* Time + Status */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Clock size={14} strokeWidth={2} style={{ color: 'var(--gray-400)' }} />
-          <span className="text-sm font-semibold" style={{ color: 'var(--gray-800)' }}>
+          <Clock size={14} strokeWidth={2} style={{ color: 'var(--text-muted)' }} />
+          <span className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
             {formatTime(appointment.time)} &ndash; {formatTime(appointment.endTime)}
           </span>
         </div>
@@ -1008,39 +1008,39 @@ function AppointmentDetailCard({ appointment }: { appointment: Appointment }) {
           style={{
             width: 28,
             height: 28,
-            background: 'var(--electric-blue)',
+            background: 'var(--accent)',
             color: 'var(--white)',
           }}
         >
           {appointment.customerFirst[0]}{appointment.customerLast[0]}
         </div>
         <div>
-          <p className="text-sm font-semibold" style={{ color: 'var(--gray-800)' }}>
+          <p className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
             {appointment.customerFirst} {appointment.customerLast}
           </p>
-          <p className="text-[11.5px]" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-[11.5px]" style={{ color: 'var(--text-muted)' }}>
             {appointment.customerEmail}
           </p>
         </div>
       </div>
 
       {/* Vehicle + Service */}
-      <div className="flex flex-col gap-1.5 mt-3 pt-3" style={{ borderTop: '1px solid var(--gray-200)' }}>
+      <div className="flex flex-col gap-1.5 mt-3 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="flex items-center gap-2">
-          <Car size={13} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-          <span className="text-xs font-medium" style={{ color: 'var(--gray-600)' }}>
+          <Car size={13} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+          <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
             {appointment.vehicle}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <User size={13} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-          <span className="text-xs font-medium" style={{ color: 'var(--gray-600)' }}>
+          <User size={13} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+          <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
             {appointment.service}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <DollarSign size={13} strokeWidth={1.8} style={{ color: 'var(--gray-400)' }} />
-          <span className="text-xs font-bold" style={{ color: 'var(--gray-800)' }}>
+          <DollarSign size={13} strokeWidth={1.8} style={{ color: 'var(--text-muted)' }} />
+          <span className="text-xs font-bold" style={{ color: 'var(--text-secondary)' }}>
             ${appointment.price}
           </span>
         </div>

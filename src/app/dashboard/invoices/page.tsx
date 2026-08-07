@@ -103,17 +103,17 @@ function getStatusStyle(status: InvoiceStatus) {
   switch (status) {
     case 'Paid':
       return {
-        bg: 'var(--emerald-light)',
+        bg: 'var(--emerald-muted)',
         color: 'var(--emerald)',
       };
     case 'Pending':
       return {
-        bg: 'var(--amber-light)',
+        bg: 'var(--amber-muted)',
         color: 'var(--amber)',
       };
     case 'Overdue':
       return {
-        bg: 'var(--rose-light)',
+        bg: 'var(--rose-muted)',
         color: 'var(--rose)',
       };
   }
@@ -136,9 +136,9 @@ function StatCard({
     <div
       className="rounded-2xl p-5"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
       }}
     >
       <div className="flex items-center gap-3 mb-2">
@@ -150,12 +150,12 @@ function StatCard({
         </div>
         <p
           className="text-xs font-semibold uppercase tracking-wider"
-          style={{ color: 'var(--gray-400)' }}
+          style={{ color: 'var(--text-muted)' }}
         >
           {label}
         </p>
       </div>
-      <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+      <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
         {value}
       </p>
     </div>
@@ -180,9 +180,9 @@ function InvoiceCard({
     <div
       className="rounded-2xl p-5 group"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
         transition: 'all 0.2s ease',
         animation: 'fadeIn 0.35s ease-out both',
         animationDelay: `${index * 0.04}s`,
@@ -201,7 +201,7 @@ function InvoiceCard({
           <div className="flex items-center gap-2 mb-1">
             <span
               className="text-[13px] font-semibold"
-              style={{ color: 'var(--electric-blue)' }}
+              style={{ color: 'var(--accent)' }}
             >
               {invoice.number}
             </span>
@@ -214,14 +214,14 @@ function InvoiceCard({
           </div>
           <p
             className="text-[15px] font-semibold truncate"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             {invoice.customerName}
           </p>
         </div>
         <p
           className="text-xl font-bold shrink-0"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           {formatCurrency(invoice.amount)}
         </p>
@@ -231,11 +231,11 @@ function InvoiceCard({
         <Car
           size={12.5}
           strokeWidth={1.8}
-          style={{ color: 'var(--gray-400)', flexShrink: 0 }}
+          style={{ color: 'var(--text-muted)', flexShrink: 0 }}
         />
         <span
           className="text-[12.5px] truncate"
-          style={{ color: 'var(--gray-600)' }}
+          style={{ color: 'var(--text-tertiary)' }}
         >
           {invoice.vehicle}
         </span>
@@ -245,24 +245,24 @@ function InvoiceCard({
         <Receipt
           size={12.5}
           strokeWidth={1.8}
-          style={{ color: 'var(--gray-400)', flexShrink: 0 }}
+          style={{ color: 'var(--text-muted)', flexShrink: 0 }}
         />
-        <span className="text-[12.5px]" style={{ color: 'var(--gray-500)' }}>
+        <span className="text-[12.5px]" style={{ color: 'var(--text-tertiary)' }}>
           {invoice.service}
         </span>
       </div>
 
       <div
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3"
-        style={{ borderTop: '1px solid var(--gray-100)' }}
+        style={{ borderTop: '1px solid var(--border-subtle)' }}
       >
         <div className="flex items-center gap-1.5">
           <Clock
             size={11}
             strokeWidth={1.8}
-            style={{ color: 'var(--gray-400)', flexShrink: 0 }}
+            style={{ color: 'var(--text-muted)', flexShrink: 0 }}
           />
-          <span className="text-[11.5px]" style={{ color: 'var(--gray-400)' }}>
+          <span className="text-[11.5px]" style={{ color: 'var(--text-muted)' }}>
             {formatDate(invoice.date)}
           </span>
         </div>
@@ -273,7 +273,7 @@ function InvoiceCard({
               onClick={() => onMarkPaid(invoice.id)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold cursor-pointer"
               style={{
-                background: 'var(--emerald-light)',
+                background: 'var(--emerald-muted)',
                 color: 'var(--emerald)',
                 border: 'none',
                 transition: 'all 0.15s ease',
@@ -283,7 +283,7 @@ function InvoiceCard({
                 e.currentTarget.style.color = 'var(--white)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--emerald-light)';
+                e.currentTarget.style.background = 'var(--emerald-muted)';
                 e.currentTarget.style.color = 'var(--emerald)';
               }}
             >
@@ -294,7 +294,7 @@ function InvoiceCard({
               onClick={() => onSendReminder(invoice.id)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold cursor-pointer"
               style={{
-                background: 'var(--amber-light)',
+                background: 'var(--amber-muted)',
                 color: 'var(--amber)',
                 border: 'none',
                 transition: 'all 0.15s ease',
@@ -304,7 +304,7 @@ function InvoiceCard({
                 e.currentTarget.style.color = 'var(--white)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--amber-light)';
+                e.currentTarget.style.background = 'var(--amber-muted)';
                 e.currentTarget.style.color = 'var(--amber)';
               }}
             >
@@ -323,8 +323,8 @@ function EmptyState() {
     <div
       className="flex flex-col items-center justify-center rounded-2xl py-20 px-8 text-center"
       style={{
-        background: 'var(--white)',
-        border: '1.5px dashed var(--gray-200)',
+        background: 'var(--bg-secondary)',
+        border: '1.5px dashed var(--border)',
       }}
     >
       <div
@@ -332,22 +332,22 @@ function EmptyState() {
         style={{
           width: 64,
           height: 64,
-          background: 'var(--electric-blue-light)',
+          background: 'var(--accent-muted)',
         }}
       >
         <Receipt
           size={28}
           strokeWidth={1.5}
-          style={{ color: 'var(--electric-blue)' }}
+          style={{ color: 'var(--accent)' }}
         />
       </div>
       <h3
         className="text-base font-semibold mb-1"
-        style={{ color: 'var(--gray-700)' }}
+        style={{ color: 'var(--text-secondary)' }}
       >
         No invoices yet
       </h3>
-      <p className="text-sm max-w-xs" style={{ color: 'var(--gray-400)' }}>
+      <p className="text-sm max-w-xs" style={{ color: 'var(--text-muted)' }}>
         Invoices will appear here once services are completed and billed.
       </p>
     </div>
@@ -415,11 +415,11 @@ export default function InvoicesPage() {
         <div>
           <h2
             className="text-2xl font-bold tracking-tight"
-            style={{ color: 'var(--gray-900)' }}
+            style={{ color: 'var(--text-primary)' }}
           >
             Invoices
           </h2>
-          <p className="text-sm mt-0.5" style={{ color: 'var(--gray-500)' }}>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
             Track payments and manage billing
           </p>
         </div>
@@ -427,18 +427,18 @@ export default function InvoicesPage() {
           onClick={handleCreateInvoice}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer shrink-0"
           style={{
-            background: 'var(--electric-blue)',
+            background: 'var(--accent)',
             boxShadow: 'var(--shadow-sm)',
             border: 'none',
             transition: 'all 0.15s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue-hover)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+            e.currentTarget.style.background = 'var(--accent-hover)';
+            e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
             e.currentTarget.style.transform = 'translateY(-1px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--electric-blue)';
+            e.currentTarget.style.background = 'var(--accent)';
             e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             e.currentTarget.style.transform = 'translateY(0)';
           }}
@@ -456,28 +456,28 @@ export default function InvoicesPage() {
           icon={DollarSign}
           label="Total Revenue"
           value={stats.totalRevenue}
-          iconBg="var(--emerald-light)"
+          iconBg="var(--emerald-muted)"
           iconColor="var(--emerald)"
         />
         <StatCard
           icon={Clock}
           label="Outstanding"
           value={stats.outstanding}
-          iconBg="var(--amber-light)"
+          iconBg="var(--amber-muted)"
           iconColor="var(--amber)"
         />
         <StatCard
           icon={TrendingUp}
           label="This Month"
           value={stats.thisMonth}
-          iconBg="var(--electric-blue-light)"
-          iconColor="var(--electric-blue)"
+          iconBg="var(--accent-muted)"
+          iconColor="var(--accent)"
         />
         <StatCard
           icon={Receipt}
           label="Avg Invoice Value"
           value={stats.avgValue}
-          iconBg="var(--violet-light)"
+          iconBg="var(--violet-muted)"
           iconColor="var(--violet)"
         />
       </div>
@@ -485,7 +485,7 @@ export default function InvoicesPage() {
       <div
         className="flex items-center gap-1.5 p-1.5 rounded-2xl w-fit"
         style={{
-          background: 'var(--gray-100)',
+          background: 'var(--bg-hover)',
           animation: 'fadeIn 0.35s ease-out 0.1s both',
         }}
       >
@@ -501,20 +501,20 @@ export default function InvoicesPage() {
               onClick={() => setActiveTab(tab)}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold cursor-pointer"
               style={{
-                background: isActive ? 'var(--white)' : 'transparent',
-                color: isActive ? 'var(--gray-900)' : 'var(--gray-500)',
+                background: isActive ? 'var(--bg-secondary)' : 'transparent',
+                color: isActive ? 'var(--text-primary)' : 'var(--text-tertiary)',
                 boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
                 border: 'none',
                 transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.color = 'var(--gray-700)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.color = 'var(--gray-500)';
+                  e.currentTarget.style.color = 'var(--text-tertiary)';
                 }
               }}
             >
@@ -522,8 +522,8 @@ export default function InvoicesPage() {
               <span
                 className="text-[11px] font-bold px-1.5 py-0.5 rounded-full"
                 style={{
-                  background: isActive ? 'var(--gray-100)' : 'transparent',
-                  color: isActive ? 'var(--gray-600)' : 'var(--gray-400)',
+                  background: isActive ? 'var(--border-subtle)' : 'transparent',
+                  color: isActive ? 'var(--text-tertiary)' : 'var(--text-muted)',
                 }}
               >
                 {count}

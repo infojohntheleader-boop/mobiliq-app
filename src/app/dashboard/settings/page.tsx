@@ -79,9 +79,9 @@ function getInitials(name: string): string {
 }
 
 const ROLE_STYLES: Record<string, { bg: string; text: string; label: string }> = {
-  owner: { bg: 'var(--electric-blue-light)', text: 'var(--electric-blue)', label: 'Owner' },
-  admin: { bg: 'var(--violet-light)', text: 'var(--violet)', label: 'Admin' },
-  employee: { bg: 'var(--gray-100)', text: 'var(--gray-600)', label: 'Employee' },
+  owner: { bg: 'var(--accent-muted)', text: 'var(--accent)', label: 'Owner' },
+  admin: { bg: 'var(--violet-muted)', text: 'var(--violet)', label: 'Admin' },
+  employee: { bg: 'var(--border-subtle)', text: 'var(--text-tertiary)', label: 'Employee' },
 };
 
 /* ================================================================== */
@@ -95,9 +95,9 @@ function TabSkeleton() {
           key={i}
           className="rounded-2xl p-6"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             boxShadow: 'var(--shadow-sm)',
-            border: '1px solid var(--gray-100)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div
@@ -105,7 +105,7 @@ function TabSkeleton() {
             style={{
               width: `${40 + i * 15}%`,
               height: 14,
-              background: 'var(--gray-100)',
+              background: 'var(--bg-hover)',
               animation: 'pulse-soft 1.5s ease-in-out infinite',
             }}
           />
@@ -117,7 +117,7 @@ function TabSkeleton() {
                   style={{
                     width: '30%',
                     height: 10,
-                    background: 'var(--gray-100)',
+                    background: 'var(--bg-hover)',
                     animation: `pulse-soft 1.5s ease-in-out infinite ${j * 0.1}s`,
                   }}
                 />
@@ -125,7 +125,7 @@ function TabSkeleton() {
                   className="rounded-md"
                   style={{
                     height: 40,
-                    background: 'var(--gray-50)',
+                    background: 'var(--bg-secondary)',
                     animation: `pulse-soft 1.5s ease-in-out infinite ${j * 0.15}s`,
                   }}
                 />
@@ -162,8 +162,8 @@ function BusinessProfileTab({
           className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium animate-fade-in"
           style={{
             background: msg.includes('saved') || msg.includes('Success')
-              ? 'var(--emerald-light)'
-              : 'var(--rose-light)',
+              ? 'var(--emerald-muted)'
+              : 'var(--rose-muted)',
             color: msg.includes('saved') || msg.includes('Success')
               ? 'var(--emerald)'
               : 'var(--rose)',
@@ -178,23 +178,23 @@ function BusinessProfileTab({
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center gap-3 mb-6">
           <div
             className="flex items-center justify-center rounded-xl"
-            style={{ width: 40, height: 40, background: 'var(--electric-blue-light)' }}
+            style={{ width: 40, height: 40, background: 'var(--accent-muted)' }}
           >
-            <Building2 size={18} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+            <Building2 size={18} strokeWidth={2} style={{ color: 'var(--accent)' }} />
           </div>
           <div>
-            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
               Business Information
             </h3>
-            <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               Update your business details visible to customers
             </p>
           </div>
@@ -202,7 +202,7 @@ function BusinessProfileTab({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="md:col-span-2">
-            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--gray-600)' }}>
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-tertiary)' }}>
               Business Name
             </label>
             <input
@@ -213,7 +213,7 @@ function BusinessProfileTab({
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--gray-600)' }}>
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-tertiary)' }}>
               Email Address
             </label>
             <input
@@ -224,7 +224,7 @@ function BusinessProfileTab({
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--gray-600)' }}>
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-tertiary)' }}>
               Phone Number
             </label>
             <input
@@ -235,7 +235,7 @@ function BusinessProfileTab({
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--gray-600)' }}>
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-tertiary)' }}>
               Address
             </label>
             <input
@@ -247,25 +247,25 @@ function BusinessProfileTab({
           </div>
         </div>
 
-        <div className="flex justify-end mt-8 pt-6" style={{ borderTop: '1px solid var(--gray-100)' }}>
+        <div className="flex justify-end mt-8 pt-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
           <button
             onClick={onSave}
             disabled={saving}
             className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: 'var(--electric-blue)',
+              background: 'var(--accent)',
               boxShadow: 'var(--shadow-sm)',
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
               if (!saving) {
-                e.currentTarget.style.background = 'var(--electric-blue-hover)';
-                e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+                e.currentTarget.style.background = 'var(--accent-hover)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--electric-blue)';
+              e.currentTarget.style.background = 'var(--accent)';
               e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
@@ -317,8 +317,8 @@ function BrandingTab({
           className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium animate-fade-in"
           style={{
             background: msg.includes('saved') || msg.includes('Success')
-              ? 'var(--emerald-light)'
-              : 'var(--rose-light)',
+              ? 'var(--emerald-muted)'
+              : 'var(--rose-muted)',
             color: msg.includes('saved') || msg.includes('Success')
               ? 'var(--emerald)'
               : 'var(--rose)',
@@ -333,23 +333,23 @@ function BrandingTab({
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center gap-3 mb-6">
           <div
             className="flex items-center justify-center rounded-xl"
-            style={{ width: 40, height: 40, background: 'var(--electric-blue-light)' }}
+            style={{ width: 40, height: 40, background: 'var(--accent-muted)' }}
           >
-            <Palette size={18} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+            <Palette size={18} strokeWidth={2} style={{ color: 'var(--accent)' }} />
           </div>
           <div>
-            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
               Brand Color
             </h3>
-            <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               Choose the accent color for your booking page
             </p>
           </div>
@@ -357,7 +357,7 @@ function BrandingTab({
 
         {/* Preset swatches */}
         <div className="mb-5">
-          <p className="text-[12px] font-medium uppercase tracking-wider mb-3" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-[12px] font-medium uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
             Preset Colors
           </p>
           <div className="flex flex-wrap gap-3">
@@ -399,7 +399,7 @@ function BrandingTab({
         {/* Custom hex input */}
         <div className="flex items-end gap-3">
           <div className="flex-1">
-            <p className="text-[12px] font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-[12px] font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>
               Custom Color
             </p>
             <div className="flex items-center gap-3">
@@ -409,7 +409,7 @@ function BrandingTab({
                   width: 44,
                   height: 44,
                   background: brandColor,
-                  border: '2px solid var(--gray-200)',
+                  border: '2px solid var(--border)',
                   transition: 'background 0.15s ease',
                 }}
               />
@@ -426,8 +426,8 @@ function BrandingTab({
         </div>
 
         {/* Preview bar */}
-        <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--gray-100)' }}>
-          <p className="text-[12px] font-medium uppercase tracking-wider mb-3" style={{ color: 'var(--gray-400)' }}>
+        <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+          <p className="text-[12px] font-medium uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
             Preview
           </p>
           <div
@@ -450,25 +450,25 @@ function BrandingTab({
           </div>
         </div>
 
-        <div className="flex justify-end mt-8 pt-6" style={{ borderTop: '1px solid var(--gray-100)' }}>
+        <div className="flex justify-end mt-8 pt-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
           <button
             onClick={onSave}
             disabled={saving}
             className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: 'var(--electric-blue)',
+              background: 'var(--accent)',
               boxShadow: 'var(--shadow-sm)',
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
               if (!saving) {
-                e.currentTarget.style.background = 'var(--electric-blue-hover)';
-                e.currentTarget.style.boxShadow = 'var(--shadow-glow-blue)';
+                e.currentTarget.style.background = 'var(--accent-hover)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--electric-blue)';
+              e.currentTarget.style.background = 'var(--accent)';
               e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
@@ -483,23 +483,23 @@ function BrandingTab({
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center gap-3 mb-6">
           <div
             className="flex items-center justify-center rounded-xl"
-            style={{ width: 40, height: 40, background: 'var(--gray-100)' }}
+            style={{ width: 40, height: 40, background: 'var(--bg-hover)' }}
           >
-            <Upload size={18} strokeWidth={2} style={{ color: 'var(--gray-500)' }} />
+            <Upload size={18} strokeWidth={2} style={{ color: 'var(--text-tertiary)' }} />
           </div>
           <div>
-            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
               Logo Upload
             </h3>
-            <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               PNG or SVG, max 2MB. Recommended 512×512px.
             </p>
           </div>
@@ -508,8 +508,8 @@ function BrandingTab({
         <div
           className="flex flex-col items-center justify-center rounded-2xl py-12 px-8 text-center cursor-pointer"
           style={{
-            background: uploadHover ? 'var(--electric-blue-light)' : 'var(--gray-50)',
-            border: `2px dashed ${uploadHover ? 'var(--electric-blue)' : 'var(--gray-300)'}`,
+            background: uploadHover ? 'var(--accent-muted)' : 'var(--bg-secondary)',
+            border: `2px dashed ${uploadHover ? 'var(--accent)' : 'var(--text-muted)'}`,
             transition: 'all 0.2s ease',
           }}
           onDragOver={(e) => {
@@ -531,20 +531,20 @@ function BrandingTab({
             style={{
               width: 56,
               height: 56,
-              background: uploadHover ? 'rgba(37,99,235,0.1)' : 'var(--gray-100)',
+              background: uploadHover ? 'rgba(37,99,235,0.1)' : 'var(--border-subtle)',
               transition: 'background 0.2s ease',
             }}
           >
             <Upload
               size={24}
               strokeWidth={1.5}
-              style={{ color: uploadHover ? 'var(--electric-blue)' : 'var(--gray-400)' }}
+              style={{ color: uploadHover ? 'var(--accent)' : 'var(--text-muted)' }}
             />
           </div>
-          <p className="text-sm font-medium mb-1" style={{ color: 'var(--gray-700)' }}>
-            Drop your logo here, or <span style={{ color: 'var(--electric-blue)' }}>browse</span>
+          <p className="text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>
+            Drop your logo here, or <span style={{ color: 'var(--accent)' }}>browse</span>
           </p>
-          <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             PNG, SVG, or JPG up to 2MB
           </p>
         </div>
@@ -578,23 +578,23 @@ function BookingPageTab({ org }: { org: OrgData }) {
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center gap-3 mb-6">
           <div
             className="flex items-center justify-center rounded-xl"
-            style={{ width: 40, height: 40, background: 'var(--electric-blue-light)' }}
+            style={{ width: 40, height: 40, background: 'var(--accent-muted)' }}
           >
-            <Link2 size={18} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+            <Link2 size={18} strokeWidth={2} style={{ color: 'var(--accent)' }} />
           </div>
           <div>
-            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
               Your Booking Page
             </h3>
-            <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               Share this link with your customers to accept online bookings
             </p>
           </div>
@@ -603,12 +603,12 @@ function BookingPageTab({ org }: { org: OrgData }) {
         {/* URL display */}
         <div
           className="flex items-center gap-3 rounded-xl p-4"
-          style={{ background: 'var(--gray-50)', border: '1px solid var(--gray-200)' }}
+          style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}
         >
-          <Link2 size={16} strokeWidth={1.8} style={{ color: 'var(--gray-400)', flexShrink: 0 }} />
+          <Link2 size={16} strokeWidth={1.8} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
           <code
             className="flex-1 text-sm font-mono truncate"
-            style={{ color: 'var(--gray-800)' }}
+            style={{ color: 'var(--text-secondary)' }}
           >
             {bookingUrl}
           </code>
@@ -616,9 +616,9 @@ function BookingPageTab({ org }: { org: OrgData }) {
             onClick={handleCopy}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer shrink-0"
             style={{
-              background: copied ? 'var(--emerald-light)' : 'var(--white)',
-              color: copied ? 'var(--emerald)' : 'var(--gray-700)',
-              border: `1px solid ${copied ? 'rgba(5,150,105,0.2)' : 'var(--gray-200)'}`,
+              background: copied ? 'var(--emerald-muted)' : 'var(--bg-secondary)',
+              color: copied ? 'var(--emerald)' : 'var(--text-secondary)',
+              border: `1px solid ${copied ? 'rgba(5,150,105,0.2)' : 'var(--border)'}`,
               transition: 'all 0.15s ease',
             }}
           >
@@ -639,7 +639,7 @@ function BookingPageTab({ org }: { org: OrgData }) {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white no-underline"
             style={{
-              background: 'var(--electric-blue)',
+              background: 'var(--accent)',
               boxShadow: 'var(--shadow-sm)',
               transition: 'all 0.15s ease',
             }}
@@ -655,23 +655,23 @@ function BookingPageTab({ org }: { org: OrgData }) {
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center gap-3 mb-6">
           <div
             className="flex items-center justify-center rounded-xl"
-            style={{ width: 40, height: 40, background: 'var(--gray-100)' }}
+            style={{ width: 40, height: 40, background: 'var(--bg-hover)' }}
           >
-            <QrCode size={18} strokeWidth={2} style={{ color: 'var(--gray-500)' }} />
+            <QrCode size={18} strokeWidth={2} style={{ color: 'var(--text-tertiary)' }} />
           </div>
           <div>
-            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+            <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
               QR Code
             </h3>
-            <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               Print this QR code for in-store display
             </p>
           </div>
@@ -680,8 +680,8 @@ function BookingPageTab({ org }: { org: OrgData }) {
         <div
           className="flex flex-col items-center justify-center rounded-2xl py-10"
           style={{
-            background: 'var(--gray-50)',
-            border: '1px solid var(--gray-200)',
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border)',
           }}
         >
           <div
@@ -689,14 +689,14 @@ function BookingPageTab({ org }: { org: OrgData }) {
             style={{
               width: 160,
               height: 160,
-              background: 'var(--white)',
-              border: '2px solid var(--gray-200)',
+              background: 'var(--bg-secondary)',
+              border: '2px solid var(--border)',
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <QrCode size={80} strokeWidth={1} style={{ color: 'var(--gray-300)' }} />
+            <QrCode size={80} strokeWidth={1} style={{ color: 'var(--text-muted)' }} />
           </div>
-          <p className="text-xs font-medium" style={{ color: 'var(--gray-500)' }}>
+          <p className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
             QR code will be generated for {bookingUrl}
           </p>
         </div>
@@ -763,7 +763,7 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
           className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium animate-fade-in"
           style={{
             background: inviteMsg.includes('success') || inviteMsg.includes('Success')
-              ? 'var(--emerald-light)' : 'var(--rose-light)',
+              ? 'var(--emerald-muted)' : 'var(--rose-muted)',
             color: inviteMsg.includes('success') || inviteMsg.includes('Success')
               ? 'var(--emerald)' : 'var(--rose)',
           }}
@@ -778,24 +778,24 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div
               className="flex items-center justify-center rounded-xl"
-              style={{ width: 40, height: 40, background: 'var(--electric-blue-light)' }}
+              style={{ width: 40, height: 40, background: 'var(--accent-muted)' }}
             >
-              <Users size={18} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+              <Users size={18} strokeWidth={2} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <h3 className="text-[15px] font-semibold" style={{ color: 'var(--gray-900)' }}>
+              <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>
                 Team Members
               </h3>
-              <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+              <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
                 {team.length} {team.length === 1 ? 'member' : 'members'}
               </p>
             </div>
@@ -805,17 +805,17 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
               onClick={() => setShowInvite(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] font-semibold cursor-pointer"
               style={{
-                background: 'var(--electric-blue)',
+                background: 'var(--accent)',
                 color: 'var(--white)',
-                boxShadow: 'var(--shadow-xs)',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--electric-blue-hover)';
+                e.currentTarget.style.background = 'var(--accent-hover)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--electric-blue)';
+                e.currentTarget.style.background = 'var(--accent)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -830,19 +830,19 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
           <div
             className="rounded-xl p-5 mb-6 animate-fade-in"
             style={{
-              background: 'var(--gray-50)',
-              border: '1px solid var(--gray-200)',
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border)',
             }}
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[13px] font-semibold" style={{ color: 'var(--gray-700)' }}>
+              <p className="text-[13px] font-semibold" style={{ color: 'var(--text-secondary)' }}>
                 Add New Team Member
               </p>
               <button
                 onClick={() => setShowInvite(false)}
                 className="p-1.5 rounded-lg cursor-pointer"
-                style={{ color: 'var(--gray-400)', background: 'transparent', border: 'none' }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--gray-200)'; }}
+                style={{ color: 'var(--text-muted)', background: 'transparent', border: 'none' }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--border)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 <X size={16} strokeWidth={2} />
@@ -874,9 +874,9 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
                 onClick={() => setShowInvite(false)}
                 className="px-4 py-2 rounded-lg text-[13px] font-medium cursor-pointer"
                 style={{
-                  background: 'var(--white)',
-                  color: 'var(--gray-600)',
-                  border: '1px solid var(--gray-200)',
+                  background: 'var(--bg-secondary)',
+                  color: 'var(--text-tertiary)',
+                  border: '1px solid var(--border)',
                 }}
               >
                 Cancel
@@ -886,7 +886,7 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
                 disabled={inviting || !inviteForm.name || !inviteForm.email}
                 className="flex items-center gap-2 px-5 py-2 rounded-lg text-[13px] font-semibold text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
-                  background: 'var(--electric-blue)',
+                  background: 'var(--accent)',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -903,14 +903,14 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
             <div className="flex flex-col items-center py-10 text-center">
               <div
                 className="flex items-center justify-center rounded-full mb-3"
-                style={{ width: 56, height: 56, background: 'var(--gray-100)' }}
+                style={{ width: 56, height: 56, background: 'var(--bg-hover)' }}
               >
-                <Users size={24} strokeWidth={1.5} style={{ color: 'var(--gray-400)' }} />
+                <Users size={24} strokeWidth={1.5} style={{ color: 'var(--text-muted)' }} />
               </div>
-              <p className="text-sm font-medium" style={{ color: 'var(--gray-500)' }}>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
                 No team members yet
               </p>
-              <p className="text-xs mt-0.5" style={{ color: 'var(--gray-400)' }}>
+              <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
                 Invite your first team member to get started
               </p>
             </div>
@@ -923,24 +923,24 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
                 key={member.id}
                 className="flex items-center gap-4 py-4 animate-slide-in"
                 style={{
-                  borderBottom: idx < team.length - 1 ? '1px solid var(--gray-100)' : 'none',
+                  borderBottom: idx < team.length - 1 ? '1px solid var(--border-subtle)' : 'none',
                   animationDelay: `${idx * 0.05}s`,
                 }}
               >
                 {/* Avatar */}
                 <div
                   className="shrink-0 flex items-center justify-center rounded-full text-xs font-bold text-white"
-                  style={{ width: 40, height: 40, background: 'var(--electric-blue)' }}
+                  style={{ width: 40, height: 40, background: 'var(--accent)' }}
                 >
                   {getInitials(member.name)}
                 </div>
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-[14px] font-semibold truncate" style={{ color: 'var(--gray-900)' }}>
+                  <p className="text-[14px] font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
                     {member.name}
                   </p>
-                  <p className="text-[12.5px] truncate" style={{ color: 'var(--gray-400)' }}>
+                  <p className="text-[12.5px] truncate" style={{ color: 'var(--text-muted)' }}>
                     {member.email}
                   </p>
                 </div>
@@ -962,16 +962,16 @@ function TeamTab({ team, loading, onRefresh }: { team: TeamMember[]; loading: bo
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: 'var(--gray-400)',
+                      color: 'var(--text-muted)',
                       transition: 'all 0.15s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--rose-light)';
+                      e.currentTarget.style.background = 'var(--rose-muted)';
                       e.currentTarget.style.color = 'var(--rose)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'var(--gray-400)';
+                      e.currentTarget.style.color = 'var(--text-muted)';
                     }}
                     aria-label={`Remove ${member.name}`}
                   >
@@ -1006,9 +1006,9 @@ function BillingTab({ org }: { org: OrgData }) {
         style={{
           background: isPro
             ? 'linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%)'
-            : 'var(--white)',
+            : 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-md)',
-          border: isPro ? '1px solid rgba(255,255,255,0.08)' : '1px solid var(--gray-100)',
+          border: isPro ? '1px solid rgba(255,255,255,0.08)' : '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex items-start justify-between">
@@ -1018,22 +1018,22 @@ function BillingTab({ org }: { org: OrgData }) {
               style={{
                 width: 44,
                 height: 44,
-                background: isPro ? 'rgba(255,255,255,0.1)' : 'var(--electric-blue-light)',
+                background: isPro ? 'rgba(255,255,255,0.1)' : 'var(--accent-muted)',
               }}
             >
               <Crown
                 size={20}
                 strokeWidth={2}
-                style={{ color: isPro ? '#fbbf24' : 'var(--electric-blue)' }}
+                style={{ color: isPro ? '#fbbf24' : 'var(--accent)' }}
               />
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: isPro ? 'rgba(255,255,255,0.5)' : 'var(--gray-400)' }}>
+              <p className="text-[11px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: isPro ? 'rgba(255,255,255,0.5)' : 'var(--text-muted)' }}>
                 Current Plan
               </p>
               <h3
                 className="text-xl font-bold capitalize"
-                style={{ color: isPro ? 'var(--white)' : 'var(--gray-900)' }}
+                style={{ color: isPro ? 'var(--white)' : 'var(--text-primary)' }}
               >
                 {planName === 'pro' ? 'Professional' : planName === 'premium' ? 'Premium' : 'Free'}
               </h3>
@@ -1044,17 +1044,17 @@ function BillingTab({ org }: { org: OrgData }) {
             <button
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-semibold cursor-pointer"
               style={{
-                background: 'var(--electric-blue)',
+                background: 'var(--accent)',
                 color: 'var(--white)',
-                boxShadow: 'var(--shadow-glow-blue)',
+                boxShadow: 'var(--shadow-glow)',
                 transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--electric-blue-hover)';
+                e.currentTarget.style.background = 'var(--accent-hover)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--electric-blue)';
+                e.currentTarget.style.background = 'var(--accent)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -1077,54 +1077,54 @@ function BillingTab({ org }: { org: OrgData }) {
         <div
           className="rounded-2xl p-5"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             boxShadow: 'var(--shadow-sm)',
-            border: '1px solid var(--gray-100)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div className="flex items-center gap-3 mb-3">
             <div
               className="flex items-center justify-center rounded-xl"
-              style={{ width: 36, height: 36, background: 'var(--electric-blue-light)' }}
+              style={{ width: 36, height: 36, background: 'var(--accent-muted)' }}
             >
-              <CalendarCheck size={16} strokeWidth={2} style={{ color: 'var(--electric-blue)' }} />
+              <CalendarCheck size={16} strokeWidth={2} style={{ color: 'var(--accent)' }} />
             </div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
               Bookings This Month
             </p>
           </div>
-          <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
             24
           </p>
-          <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--gray-100)' }}>
+          <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--bg-hover)' }}>
             <div
               className="h-full rounded-full"
-              style={{ width: '48%', background: 'var(--electric-blue)', transition: 'width 0.5s ease' }}
+              style={{ width: '48%', background: 'var(--accent)', transition: 'width 0.5s ease' }}
             />
           </div>
-          <p className="text-[11px] mt-1.5" style={{ color: 'var(--gray-400)' }}>24 of 50 limit</p>
+          <p className="text-[11px] mt-1.5" style={{ color: 'var(--text-muted)' }}>24 of 50 limit</p>
         </div>
 
         <div
           className="rounded-2xl p-5"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             boxShadow: 'var(--shadow-sm)',
-            border: '1px solid var(--gray-100)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div className="flex items-center gap-3 mb-3">
             <div
               className="flex items-center justify-center rounded-xl"
-              style={{ width: 36, height: 36, background: 'var(--emerald-light)' }}
+              style={{ width: 36, height: 36, background: 'var(--emerald-muted)' }}
             >
               <BarChart3 size={16} strokeWidth={2} style={{ color: 'var(--emerald)' }} />
             </div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
               Total Revenue
             </p>
           </div>
-          <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
             $4,820
           </p>
           <p className="text-[11px] mt-2" style={{ color: 'var(--emerald)' }}>
@@ -1135,26 +1135,26 @@ function BillingTab({ org }: { org: OrgData }) {
         <div
           className="rounded-2xl p-5"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             boxShadow: 'var(--shadow-sm)',
-            border: '1px solid var(--gray-100)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div className="flex items-center gap-3 mb-3">
             <div
               className="flex items-center justify-center rounded-xl"
-              style={{ width: 36, height: 36, background: 'var(--violet-light)' }}
+              style={{ width: 36, height: 36, background: 'var(--violet-muted)' }}
             >
               <Shield size={16} strokeWidth={2} style={{ color: 'var(--violet)' }} />
             </div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--gray-400)' }}>
+            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
               Team Seats
             </p>
           </div>
-          <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
             3 / 5
           </p>
-          <p className="text-[11px] mt-2" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-[11px] mt-2" style={{ color: 'var(--text-muted)' }}>
             2 seats available
           </p>
         </div>
@@ -1275,10 +1275,10 @@ export default function SettingsPage() {
     <div className="flex flex-col gap-6">
       {/* Page title */}
       <div>
-        <h2 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--gray-900)' }}>
+        <h2 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
           Settings
         </h2>
-        <p className="text-sm mt-0.5" style={{ color: 'var(--gray-500)' }}>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
           Manage your business preferences and configuration
         </p>
       </div>
@@ -1287,9 +1287,9 @@ export default function SettingsPage() {
       <div
         className="rounded-2xl p-1.5 overflow-x-auto"
         style={{
-          background: 'var(--white)',
+          background: 'var(--bg-secondary)',
           boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--gray-100)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div className="flex gap-1 min-w-max">
@@ -1305,21 +1305,21 @@ export default function SettingsPage() {
                 }}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium cursor-pointer whitespace-nowrap"
                 style={{
-                  background: active ? 'var(--electric-blue)' : 'transparent',
-                  color: active ? 'var(--white)' : 'var(--gray-500)',
+                  background: active ? 'var(--accent)' : 'transparent',
+                  color: active ? 'var(--white)' : 'var(--text-tertiary)',
                   transition: 'all 0.15s ease',
                   border: 'none',
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = 'var(--gray-50)';
-                    e.currentTarget.style.color = 'var(--gray-800)';
+                    e.currentTarget.style.background = 'var(--bg-secondary)';
+                    e.currentTarget.style.color = 'var(--text-secondary)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'var(--gray-500)';
+                    e.currentTarget.style.color = 'var(--text-tertiary)';
                   }
                 }}
               >

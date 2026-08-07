@@ -155,23 +155,23 @@ function VehicleSkeleton() {
     <div
       className="rounded-2xl overflow-hidden"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
       }}
     >
       <div
         className="h-32"
         style={{
-          background: 'var(--gray-100)',
+          background: 'var(--bg-hover)',
           animation: 'pulse-soft 1.5s ease-in-out infinite',
         }}
       />
       <div className="p-4 space-y-3">
-        <div className="rounded-md" style={{ width: '75%', height: 16, background: 'var(--gray-100)', animation: 'pulse-soft 1.5s ease-in-out infinite' }} />
-        <div className="rounded-md" style={{ width: '50%', height: 12, background: 'var(--gray-100)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.1s' }} />
-        <div className="rounded-md" style={{ width: '60%', height: 12, background: 'var(--gray-100)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.2s' }} />
-        <div className="rounded-md" style={{ width: '45%', height: 12, background: 'var(--gray-100)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.3s' }} />
+        <div className="rounded-md" style={{ width: '75%', height: 16, background: 'var(--bg-hover)', animation: 'pulse-soft 1.5s ease-in-out infinite' }} />
+        <div className="rounded-md" style={{ width: '50%', height: 12, background: 'var(--bg-hover)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.1s' }} />
+        <div className="rounded-md" style={{ width: '60%', height: 12, background: 'var(--bg-hover)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.2s' }} />
+        <div className="rounded-md" style={{ width: '45%', height: 12, background: 'var(--bg-hover)', animation: 'pulse-soft 1.5s ease-in-out infinite 0.3s' }} />
       </div>
     </div>
   );
@@ -194,9 +194,9 @@ function StatCard({
     <div
       className="rounded-2xl p-5"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
       }}
     >
       <div className="flex items-center gap-3 mb-2">
@@ -208,12 +208,12 @@ function StatCard({
         </div>
         <p
           className="text-xs font-semibold uppercase tracking-wider"
-          style={{ color: 'var(--gray-400)' }}
+          style={{ color: 'var(--text-muted)' }}
         >
           {label}
         </p>
       </div>
-      <p className="text-2xl font-bold" style={{ color: 'var(--gray-900)' }}>
+      <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
         {value}
       </p>
     </div>
@@ -229,9 +229,9 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
     <div
       className="rounded-2xl overflow-hidden group cursor-pointer"
       style={{
-        background: 'var(--white)',
+        background: 'var(--bg-secondary)',
         boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--gray-100)',
+        border: '1px solid var(--border-subtle)',
         transition: 'all 0.2s ease',
         animation: 'fadeIn 0.35s ease-out both',
       }}
@@ -252,19 +252,19 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
     >
       <div
         className="h-32 flex items-center justify-center rounded-t-2xl"
-        style={{ background: 'var(--gray-100)' }}
+        style={{ background: 'var(--bg-hover)' }}
       >
         <Car
           size={36}
           strokeWidth={1.2}
-          style={{ color: 'var(--gray-300)' }}
+          style={{ color: 'var(--text-muted)' }}
         />
       </div>
 
       <div className="p-4 space-y-2.5">
         <h3
           className="text-[15px] font-bold leading-tight"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           {vehicleLabel}
         </h3>
@@ -276,10 +276,10 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
               width: 14,
               height: 14,
               background: vehicle.colorHex,
-              border: '2px solid var(--gray-200)',
+              border: '2px solid var(--border)',
             }}
           />
-          <span className="text-[12.5px]" style={{ color: 'var(--gray-500)' }}>
+          <span className="text-[12.5px]" style={{ color: 'var(--text-tertiary)' }}>
             {vehicle.color}
           </span>
         </div>
@@ -288,11 +288,11 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
           <User
             size={12.5}
             strokeWidth={1.8}
-            style={{ color: 'var(--gray-400)', flexShrink: 0 }}
+            style={{ color: 'var(--text-muted)', flexShrink: 0 }}
           />
           <span
             className="text-[12.5px] truncate"
-            style={{ color: 'var(--gray-600)' }}
+            style={{ color: 'var(--text-tertiary)' }}
           >
             {vehicle.ownerName}
           </span>
@@ -302,9 +302,9 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
           <Wrench
             size={12.5}
             strokeWidth={1.8}
-            style={{ color: 'var(--electric-blue)', flexShrink: 0 }}
+            style={{ color: 'var(--accent)', flexShrink: 0 }}
           />
-          <span className="text-[12.5px]" style={{ color: 'var(--gray-600)' }}>
+          <span className="text-[12.5px]" style={{ color: 'var(--text-tertiary)' }}>
             {vehicle.serviceCount}{' '}
             {vehicle.serviceCount === 1 ? 'service' : 'services'}
           </span>
@@ -314,9 +314,9 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
           <CalendarDays
             size={12.5}
             strokeWidth={1.8}
-            style={{ color: 'var(--gray-400)', flexShrink: 0 }}
+            style={{ color: 'var(--text-muted)', flexShrink: 0 }}
           />
-          <span className="text-[12.5px]" style={{ color: 'var(--gray-400)' }}>
+          <span className="text-[12.5px]" style={{ color: 'var(--text-muted)' }}>
             {formatDate(vehicle.lastServiceDate)}
           </span>
         </div>
@@ -330,8 +330,8 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
     <div
       className="flex flex-col items-center justify-center rounded-2xl py-20 px-8 text-center"
       style={{
-        background: 'var(--white)',
-        border: '1.5px dashed var(--gray-200)',
+        background: 'var(--bg-secondary)',
+        border: '1.5px dashed var(--border)',
       }}
     >
       <div
@@ -339,22 +339,22 @@ function EmptyState({ hasSearch }: { hasSearch: boolean }) {
         style={{
           width: 64,
           height: 64,
-          background: hasSearch ? 'var(--gray-100)' : 'var(--electric-blue-light)',
+          background: hasSearch ? 'var(--border-subtle)' : 'var(--accent-muted)',
         }}
       >
         <Car
           size={28}
           strokeWidth={1.5}
-          style={{ color: hasSearch ? 'var(--gray-400)' : 'var(--electric-blue)' }}
+          style={{ color: hasSearch ? 'var(--text-muted)' : 'var(--accent)' }}
         />
       </div>
       <h3
         className="text-base font-semibold mb-1"
-        style={{ color: 'var(--gray-700)' }}
+        style={{ color: 'var(--text-secondary)' }}
       >
         {hasSearch ? 'No vehicles found' : 'No vehicles yet'}
       </h3>
-      <p className="text-sm max-w-xs" style={{ color: 'var(--gray-400)' }}>
+      <p className="text-sm max-w-xs" style={{ color: 'var(--text-muted)' }}>
         {hasSearch
           ? "Try adjusting your search to find what you're looking for."
           : 'Vehicles will appear here once bookings are created.'}
@@ -485,11 +485,11 @@ export default function VehiclesPage() {
       <div style={{ animation: 'fadeIn 0.35s ease-out both' }}>
         <h2
           className="text-2xl font-bold tracking-tight"
-          style={{ color: 'var(--gray-900)' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           Vehicles
         </h2>
-        <p className="text-sm mt-0.5" style={{ color: 'var(--gray-500)' }}>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
           Vehicle profiles and service history
         </p>
       </div>
@@ -503,21 +503,21 @@ export default function VehiclesPage() {
             icon={Car}
             label="Total Vehicles"
             value={stats.totalVehicles}
-            iconBg="var(--electric-blue-light)"
-            iconColor="var(--electric-blue)"
+            iconBg="var(--accent-muted)"
+            iconColor="var(--accent)"
           />
           <StatCard
             icon={Wrench}
             label="Serviced This Week"
             value={stats.servicedThisWeek}
-            iconBg="var(--emerald-light)"
+            iconBg="var(--emerald-muted)"
             iconColor="var(--emerald)"
           />
           <StatCard
             icon={Users}
             label="Unique Customers"
             value={stats.uniqueOwners}
-            iconBg="var(--violet-light)"
+            iconBg="var(--violet-muted)"
             iconColor="var(--violet)"
           />
         </div>
@@ -531,7 +531,7 @@ export default function VehiclesPage() {
           size={16}
           strokeWidth={1.8}
           className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ color: 'var(--gray-400)' }}
+          style={{ color: 'var(--text-muted)' }}
         />
         <input
           type="text"
@@ -547,13 +547,13 @@ export default function VehiclesPage() {
         <div
           className="flex flex-col items-center justify-center rounded-2xl py-16 px-8 text-center"
           style={{
-            background: 'var(--white)',
+            background: 'var(--bg-secondary)',
             border: '1.5px dashed var(--rose)',
           }}
         >
           <div
             className="flex items-center justify-center rounded-full mb-4"
-            style={{ width: 56, height: 56, background: 'var(--rose-light)' }}
+            style={{ width: 56, height: 56, background: 'var(--rose-muted)' }}
           >
             <Clock
               size={24}
@@ -567,7 +567,7 @@ export default function VehiclesPage() {
           >
             Failed to load vehicles
           </h3>
-          <p className="text-xs" style={{ color: 'var(--gray-400)' }}>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             {error}
           </p>
         </div>
@@ -585,7 +585,7 @@ export default function VehiclesPage() {
         <>
           <p
             className="text-xs font-medium"
-            style={{ color: 'var(--gray-400)' }}
+            style={{ color: 'var(--text-muted)' }}
           >
             {filteredVehicles.length}{' '}
             {filteredVehicles.length === 1 ? 'vehicle' : 'vehicles'}

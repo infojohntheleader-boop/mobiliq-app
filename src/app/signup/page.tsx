@@ -32,41 +32,73 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20 bg-gray-50">
-      <div className="w-full max-w-md">
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: 'var(--electric-blue)' }}>M</div>
-          <span className="text-xl font-bold text-gray-900">Mobiliq</span>
+    <div className="min-h-screen flex items-center justify-center px-4 py-20" style={{ background: 'var(--bg-primary)' }}>
+      <div className="w-full max-w-md animate-fade-in">
+        {/* Logo */}
+        <div className="flex items-center gap-2.5 mb-10">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: 'var(--accent)' }}>M</div>
+          <span className="text-[19px] font-semibold text-white tracking-tight">Mobiliq</span>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h1>
-        <p className="text-gray-500 text-sm mb-8">Start your 14-day free trial. No credit card required.</p>
+
+        {/* Heading */}
+        <h1 className="text-[26px] font-bold text-white tracking-tight mb-2">Create your account</h1>
+        <p className="text-[14px] mb-8" style={{ color: 'var(--text-tertiary)' }}>
+          Start your 14-day free trial. No credit card required.
+        </p>
+
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-100 text-red-600 text-sm">{error}</div>
+          <div className="mb-5 p-3.5 rounded-xl text-[13px] font-medium" style={{ background: 'var(--rose-muted)', color: 'var(--rose)', border: '1px solid rgba(251,113,133,0.15)' }}>{error}</div>
         )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input type="text" required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="John Smith" className="bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300" />
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Full Name</label>
+            <input
+              type="text" required
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })}
+              placeholder="John Smith"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="john@example.com" className="bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300" />
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Email</label>
+            <input
+              type="email" required
+              value={form.email}
+              onChange={e => setForm({ ...form, email: e.target.value })}
+              placeholder="john@example.com"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input type="password" required minLength={8} value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="At least 8 characters" className="bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300" />
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Password</label>
+            <input
+              type="password" required minLength={8}
+              value={form.password}
+              onChange={e => setForm({ ...form, password: e.target.value })}
+              placeholder="At least 8 characters"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
-            <input type="text" required value={form.businessName} onChange={e => setForm({ ...form, businessName: e.target.value })} placeholder="Smith's Detailing" className="bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300" />
+            <label className="block text-[13px] font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Business Name</label>
+            <input
+              type="text" required
+              value={form.businessName}
+              onChange={e => setForm({ ...form, businessName: e.target.value })}
+              placeholder="Smith's Detailing"
+            />
           </div>
-          <button type="submit" disabled={loading} className="w-full py-2.5 text-white rounded-lg font-semibold text-sm transition disabled:opacity-50" style={{ background: 'var(--electric-blue)' }}>
-            {loading ? 'Creating account...' : 'Create Account'}
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full justify-center text-[14px] py-3 rounded-xl mt-2"
+          >
+            {loading ? 'Creating account…' : 'Create Account'}
           </button>
         </form>
-        <p className="text-sm text-gray-500 mt-6 text-center">
+
+        <p className="text-[13px] mt-8 text-center" style={{ color: 'var(--text-tertiary)' }}>
           Already have an account?{' '}
-          <Link href="/login" className="font-medium" style={{ color: 'var(--electric-blue)' }}>Log in</Link>
+          <Link href="/login" className="font-medium" style={{ color: 'var(--accent)' }}>Log in</Link>
         </p>
       </div>
     </div>
