@@ -14,7 +14,7 @@ export default function LandingPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: 'var(--blue)' }}>M</div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: 'var(--electric-blue)' }}>M</div>
             <span className="text-lg font-bold text-gray-900">Mobiliq</span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
@@ -24,7 +24,7 @@ export default function LandingPage() {
           </nav>
           <div className="hidden md:flex items-center gap-3">
             <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 px-4 py-2 transition">Log in</Link>
-            <Link href="/signup" className="text-sm font-medium text-white px-5 py-2.5 rounded-lg transition" style={{ background: 'var(--blue)' }}>Start Free Trial</Link>
+            <Link href="/signup" className="text-sm font-medium text-white px-5 py-2.5 rounded-lg transition" style={{ background: 'var(--electric-blue)' }}>Start Free Trial</Link>
           </div>
           <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden p-2 text-gray-600">
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -37,7 +37,7 @@ export default function LandingPage() {
             <a href="#pricing" onClick={() => setMobileMenu(false)} className="block text-sm font-medium text-gray-600">Pricing</a>
             <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
               <Link href="/login" className="text-sm font-medium text-gray-600 py-2">Log in</Link>
-              <Link href="/signup" className="text-sm font-medium text-white text-center py-2.5 rounded-lg" style={{ background: 'var(--blue)' }}>Start Free Trial</Link>
+              <Link href="/signup" className="text-sm font-medium text-white text-center py-2.5 rounded-lg" style={{ background: 'var(--electric-blue)' }}>Start Free Trial</Link>
             </div>
           </div>
         )}
@@ -49,13 +49,13 @@ export default function LandingPage() {
           <div>
             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.08] tracking-tight text-gray-900 mb-6">
               Run Your Detailing Business{' '}
-              <span style={{ color: 'var(--blue)' }}>Like a Pro</span>
+              <span style={{ color: 'var(--electric-blue)' }}>Like a Pro</span>
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-lg">
               All-in-one platform for managing bookings, invoicing, and customer relationships. Give your detailing business the tools it deserves — all under your own brand.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg text-white font-semibold text-base transition shadow-lg shadow-blue-900/20" style={{ background: 'var(--blue)' }}>
+              <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg text-white font-semibold text-base transition shadow-lg shadow-blue-900/20" style={{ background: 'var(--electric-blue)' }}>
                 Start Free Trial
                 <svg className="ml-2" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
               </Link>
@@ -77,7 +77,7 @@ export default function LandingPage() {
           <p className="text-sm font-medium text-gray-500">Trusted by detailers worldwide</p>
           <div className="flex items-center gap-4">
             <div className="flex -space-x-2">
-              {['bg-blue-600', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500', 'bg-violet-500'].map((bg, i) => (
+              {['bg-blue-700', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500', 'bg-violet-500'].map((bg, i) => (
                 <div key={i} className={`w-9 h-9 rounded-full ${bg} border-2 border-white flex items-center justify-center text-white text-xs font-bold`}>{['JD','MK','AR','TL','SP'][i]}</div>
               ))}
             </div>
@@ -96,7 +96,7 @@ export default function LandingPage() {
       <section id="products" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--blue)' }}>Products</p>
+            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Products</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Everything you need in one place</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">Stop juggling spreadsheets, phone calls, and messy notes. Mobiliq brings every part of your business into a single, beautiful dashboard.</p>
           </div>
@@ -124,7 +124,7 @@ export default function LandingPage() {
                 desc: 'Know every customer by name. Track vehicle history, preferences, and communication — all in one profile.',
               },
             ].map((f, i) => (
-              <div key={i} className="group p-8 rounded-2xl border border-gray-100 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 bg-white">
+              <div key={i} className="group p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 bg-white">
                 <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ background: 'var(--blue-50)' }}>
                   {f.icon}
                 </div>
@@ -140,7 +140,7 @@ export default function LandingPage() {
       <section id="solutions" className="py-24 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--blue)' }}>Dashboard</p>
+            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Dashboard</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Experience the Precision</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">A real-time command center built for detailing businesses. See everything at a glance.</p>
           </div>
@@ -192,7 +192,7 @@ export default function LandingPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-medium text-gray-600">{a.time}</p>
-                        <span className={`text-xs font-medium ${a.status === 'Confirmed' ? 'text-emerald-600' : a.status === 'Pending' ? 'text-amber-600' : 'text-blue-600'}`}>{a.status}</span>
+                        <span className={`text-xs font-medium ${a.status === 'Confirmed' ? 'text-emerald-600' : a.status === 'Pending' ? 'text-amber-600' : 'var(--electric-blue)'}`}>{a.status}</span>
                       </div>
                     </div>
                   ))}
@@ -203,14 +203,14 @@ export default function LandingPage() {
                   <div className="flex items-end gap-2 h-40">
                     {[45, 62, 38, 71, 55, 80, 68].map((h, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full rounded-t-sm transition-all" style={{ height: `${h}%`, background: i === 5 ? 'var(--blue)' : 'var(--blue-50)', minHeight: '8px' }} />
+                        <div className="w-full rounded-t-sm transition-all" style={{ height: `${h}%`, background: i === 5 ? 'var(--electric-blue)' : 'var(--blue-50)', minHeight: '8px' }} />
                         <span className="text-[10px] text-gray-400">{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>
                       </div>
                     ))}
                   </div>
                   <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between">
                     <span className="text-xs text-gray-400">Weekly Total</span>
-                    <span className="text-sm font-bold" style={{ color: 'var(--blue)' }}>$4,280</span>
+                    <span className="text-sm font-bold" style={{ color: 'var(--electric-blue)' }}>$4,280</span>
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function LandingPage() {
             &ldquo;Mobiliq completely transformed how we run our shop. We went from 15 phone calls a day for bookings to zero. Our revenue is up 40% and our customers love the professional booking experience.&rdquo;
           </blockquote>
           <div className="flex items-center justify-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">JR</div>
+            <div className="w-14 h-14 rounded-full bg-blue-700 flex items-center justify-center text-white text-lg font-bold">JR</div>
             <div className="text-left">
               <p className="font-semibold text-gray-900">Jake Rodriguez</p>
               <p className="text-sm text-gray-500">Owner, Precision Auto Spa · Austin, TX</p>
@@ -240,7 +240,7 @@ export default function LandingPage() {
       <section id="pricing" className="py-24 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--blue)' }}>Pricing</p>
+            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--electric-blue)' }}>Pricing</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">Start free. Upgrade when you're ready. No hidden fees.</p>
           </div>
@@ -252,7 +252,7 @@ export default function LandingPage() {
             ].map((p, i) => (
               <div key={i} className={`relative p-8 rounded-2xl border ${p.popular ? 'border-blue-200 shadow-xl shadow-blue-900/10' : 'border-gray-200'} bg-white`}>
                 {p.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold text-white" style={{ background: 'var(--blue)' }}>Most Popular</div>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold text-white" style={{ background: 'var(--electric-blue)' }}>Most Popular</div>
                 )}
                 <h3 className="text-lg font-bold text-gray-900 mb-1">{p.plan}</h3>
                 <div className="flex items-baseline gap-1 mb-6">
@@ -267,7 +267,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/signup" className={`block text-center py-3 rounded-lg font-semibold text-sm transition ${p.popular ? 'text-white shadow-lg shadow-blue-900/20' : 'border border-gray-200 text-gray-700 hover:bg-gray-50'}`} style={p.popular ? { background: 'var(--blue)' } : {}}>
+                <Link href="/signup" className={`block text-center py-3 rounded-lg font-semibold text-sm transition ${p.popular ? 'text-white shadow-lg shadow-blue-900/20' : 'border border-gray-200 text-gray-700 hover:bg-gray-50'}`} style={p.popular ? { background: 'var(--electric-blue)' } : {}}>
                   {p.cta}
                 </Link>
               </div>
@@ -278,10 +278,10 @@ export default function LandingPage() {
 
       {/* ===== CTA ===== */}
       <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center p-12 sm:p-16 rounded-3xl" style={{ background: 'var(--blue)' }}>
+        <div className="max-w-4xl mx-auto text-center p-12 sm:p-16 rounded-3xl" style={{ background: 'var(--electric-blue)' }}>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to grow your business?</h2>
           <p className="text-blue-200 text-lg mb-10 max-w-xl mx-auto">Join hundreds of detailing businesses using Mobiliq to streamline operations and impress customers.</p>
-          <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white font-semibold text-base transition hover:bg-blue-50" style={{ color: 'var(--blue)' }}>
+          <Link href="/signup" className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white font-semibold text-base transition hover:bg-blue-50" style={{ color: 'var(--electric-blue)' }}>
             Start Your Free Trial
             <svg className="ml-2" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </Link>
@@ -292,7 +292,7 @@ export default function LandingPage() {
       <footer className="border-t border-gray-100 py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs" style={{ background: 'var(--blue)' }}>M</div>
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs" style={{ background: 'var(--electric-blue)' }}>M</div>
             <span className="font-bold text-gray-900">Mobiliq</span>
           </div>
           <div className="flex gap-8 text-sm text-gray-500">

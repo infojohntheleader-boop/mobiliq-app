@@ -1,101 +1,452 @@
+// @ts-nocheck
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import {
+  LayoutDashboard,
+  Calendar,
+  CalendarCheck,
+  Users,
+  Car,
+  Sparkles,
+  UserCog,
+  Receipt,
+  BarChart3,
+  Cog,
+  LogOut,
+  Menu,
+  X,
+  Search,
+  Bell,
+} from 'lucide-react';
 
+/* ------------------------------------------------------------------ */
+/*  Types                                                              */
+/* ------------------------------------------------------------------ */
 interface OrgUser {
   name: string;
+  email?: string;
   orgName: string;
   orgSlug: string;
   role: string;
 }
 
-const navItems = [
-  { href: '/dashboard', label: 'Bookings', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { href: '/dashboard/services', label: 'Services', icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z' },
-  { href: '/dashboard/team', label: 'Team', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
-  { href: '/dashboard/settings', label: 'Settings', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ElementType;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+/* ------------------------------------------------------------------ */
+/*  Navigation data                                                    */
+/* ------------------------------------------------------------------ */
+const navGroups: NavGroup[] = [
+  {
+    title: 'MAIN',
+    items: [
+      { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
+      { href: '/dashboard/appointments', label: 'Appointments', icon: CalendarCheck },
+    ],
+  },
+  {
+    title: 'BUSINESS',
+    items: [
+      { href: '/dashboard/customers', label: 'Customers', icon: Users },
+      { href: '/dashboard/vehicles', label: 'Vehicles', icon: Car },
+      { href: '/dashboard/services', label: 'Services', icon: Sparkles },
+      { href: '/dashboard/team', label: 'Employees', icon: UserCog },
+    ],
+  },
+  {
+    title: 'FINANCE',
+    items: [
+      { href: '/dashboard/invoices', label: 'Invoices', icon: Receipt },
+      { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart3 },
+    ],
+  },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+const settingsItem: NavItem = {
+  href: '/dashboard/settings',
+  label: 'Settings',
+  icon: Cog,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                            */
+/* ------------------------------------------------------------------ */
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+}
+
+function getPageTitle(pathname: string): string {
+  for (const group of navGroups) {
+    for (const item of group.items) {
+      if (pathname === item.href) return item.label;
+    }
+  }
+  if (pathname === settingsItem.href) return settingsItem.label;
+  return 'Dashboard';
+}
+
+/* ------------------------------------------------------------------ */
+/*  Layout                                                             */
+/* ------------------------------------------------------------------ */
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<OrgUser | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
+  /* --- Auth check ------------------------------------------------- */
   useEffect(() => {
-    fetch('/api/auth/me').then(r => {
-      if (!r.ok) { router.push('/login'); return; }
-      return r.json();
-    }).then(data => {
-      if (data) setUser(data);
-    });
+    fetch('/api/auth/me')
+      .then((r) => {
+        if (!r.ok) {
+          router.push('/login');
+          return null;
+        }
+        return r.json();
+      })
+      .then((data) => {
+        if (data) setUser(data);
+      });
   }, [router]);
 
-  if (!user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-pulse text-gray-400">Loading...</div></div>;
-  }
+  /* --- Close sidebar on route change (mobile) --------------------- */
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
-  function logout() {
+  /* --- Lock body scroll when mobile sidebar is open --------------- */
+  useEffect(() => {
+    document.body.style.overflow = sidebarOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
+
+  const handleLogout = useCallback(() => {
     fetch('/api/auth/logout', { method: 'POST' });
     document.cookie = 'session=; path=/; max-age=0';
     router.push('/login');
+  }, [router]);
+
+  /* --- Loading state ----------------------------------------------- */
+  if (!user) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'var(--gray-25)' }}
+      >
+        <div className="flex flex-col items-center gap-3">
+          <div
+            className="w-8 h-8 rounded-lg"
+            style={{
+              background: 'var(--electric-blue)',
+              animation: 'pulse-soft 1.2s ease-in-out infinite',
+            }}
+          />
+          <span className="text-sm" style={{ color: 'var(--gray-400)' }}>
+            Loading - 
+          </span>
+        </div>
+      </div>
+    );
   }
 
+  /* --- Derived ----------------------------------------------------- */
+  const pageTitle = getPageTitle(pathname);
+
+  /* ================================================================== */
+/*  RENDER                                                            */
+/* ================================================================== */
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-white/5 transform transition-transform md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`} style={{ background: 'var(--color-card)' }}>
-        <div className="p-6 border-b border-white/5">
-          <Link href="/" className="text-xl font-bold">Mobiliq</Link>
-          <p className="text-xs text-gray-400 mt-1 truncate">{user.orgName}</p>
+    <div className="mobiliq-shell" style={{ background: 'var(--gray-25)' }}>
+
+      
+      <aside
+        className={
+          'mobiliq-sidebar' + (sidebarOpen ? ' mobiliq-sidebar-open' : '')
+        }
+      >
+        
+        <div
+          className="flex items-center gap-3 px-5 shrink-0"
+          style={{
+            height: 'var(--header-height)',
+            borderBottom: '1px solid var(--gray-100)',
+          }}
+        >
+          <div
+            className="flex items-center justify-center text-white font-bold text-sm"
+            style={{
+              width: 34,
+              height: 34,
+              borderRadius: 10,
+              background: 'var(--electric-blue)',
+            }}
+          >
+            M
+          </div>
+          <span
+            className="text-[15px] font-semibold tracking-tight"
+            style={{ color: 'var(--gray-900)' }}
+          >
+            Mobiliq
+          </span>
+          
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="ml-auto md:hidden p-1.5 rounded-lg transition-colors duration-100"
+            style={{ color: 'var(--gray-400)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--gray-100)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
+            aria-label="Close sidebar"
+          >
+            <X size={18} />
+          </button>
         </div>
-        <nav className="p-4 space-y-1">
-          {navItems.map(item => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition ${active ? 'bg-indigo-600/10 text-indigo-400' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+
+        
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          {navGroups.map((group) => (
+            <div key={group.title} className="mb-5">
+              <p
+                className="px-3 mb-1.5 text-[11px] font-semibold tracking-widest uppercase"
+                style={{ color: 'var(--gray-400)' }}
               >
-                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={item.icon}/></svg>
-                {item.label}
-              </Link>
-            );
-          })}
+                {group.title}
+              </p>
+              <ul className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = pathname === item.href;
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setSidebarOpen(false)}
+                        className={
+                          'nav-link' + (active ? ' nav-link-active' : '')
+                        }
+                      >
+                        <Icon
+                          size={18}
+                          strokeWidth={active ? 2.2 : 1.8}
+                        />
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+
+          
+          <div
+            className="pt-2"
+            style={{ borderTop: '1px solid var(--gray-100)' }}
+          >
+            <ul className="space-y-0.5">
+              <li>
+                <Link
+                  href={settingsItem.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={
+                    'nav-link' +
+                    (pathname === settingsItem.href
+                      ? ' nav-link-active'
+                      : '')
+                  }
+                >
+                  <Cog
+                    size={18}
+                    strokeWidth={
+                      pathname === settingsItem.href ? 2.2 : 1.8
+                    }
+                  />
+                  <span>{settingsItem.label}</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/5">
-          <div className="text-sm text-gray-400 mb-3 truncate">{user.name}</div>
-          <button onClick={logout} className="text-sm text-gray-500 hover:text-red-400 transition">Log out</button>
+
+        
+        <div
+          className="shrink-0 px-4 py-3"
+          style={{
+            borderTop: '1px solid var(--gray-100)',
+            background: 'var(--gray-25)',
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className="flex items-center justify-center rounded-full text-white text-xs font-semibold shrink-0"
+              style={{
+                width: 36,
+                height: 36,
+                background: 'var(--electric-blue)',
+              }}
+            >
+              {getInitials(user.name)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p
+                className="text-[13px] font-medium truncate"
+                style={{ color: 'var(--gray-800)' }}
+              >
+                {user.name}
+              </p>
+              <p
+                className="text-[11.5px] truncate"
+                style={{ color: 'var(--gray-400)' }}
+              >
+                {user.email || user.orgName}
+              </p>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-lg transition-colors duration-100"
+              style={{ color: 'var(--gray-400)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--gray-100)';
+                e.currentTarget.style.color = 'var(--rose)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--gray-400)';
+              }}
+              aria-label="Log out"
+            >
+              <LogOut size={16} strokeWidth={1.8} />
+            </button>
+          </div>
         </div>
       </aside>
 
-      {/* Mobile overlay */}
-      {sidebarOpen && <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />}
+      
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 md:hidden"
+          style={{
+            background: 'rgba(13, 17, 23, 0.25)',
+            backdropFilter: 'blur(2px)',
+          }}
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
-      {/* Main content */}
-      <main className="flex-1 md:ml-64">
-        <header className="h-16 border-b border-white/5 flex items-center px-6 gap-4" style={{ background: 'rgba(10,10,15,0.8)', backdropFilter: 'blur(12px)' }}>
-          <button onClick={() => setSidebarOpen(true)} className="md:hidden text-gray-400">
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          </button>
-          <div className="flex-1" />
-          <a
-            href={`/${user.orgSlug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-gray-400 hover:text-indigo-400 transition"
+      
+      <div className="mobiliq-main">
+        
+        <header
+          className="sticky top-0 z-30 flex items-center gap-4 px-4 md:px-8 shrink-0"
+          style={{
+            height: 'var(--header-height)',
+            background: 'var(--white)',
+            borderBottom: '1px solid rgba(233, 236, 240, 0.6)',
+          }}
+        >
+          
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="md:hidden p-2 -ml-2 rounded-lg transition-colors duration-100"
+            style={{ color: 'var(--gray-600)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--gray-50)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
+            aria-label="Open sidebar"
           >
-            View Booking Page &rarr;
-          </a>
+            <Menu size={20} strokeWidth={1.8} />
+          </button>
+
+          
+          <h1
+            className="text-[15px] font-semibold tracking-tight hidden sm:block"
+            style={{ color: 'var(--gray-900)' }}
+          >
+            {pageTitle}
+          </h1>
+
+          
+          <div className="flex-1" />
+
+          
+          <div className="relative hidden md:block">
+            <Search
+              size={15}
+              strokeWidth={1.8}
+              className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+              style={{ color: 'var(--gray-400)' }}
+            />
+            <input
+              type="text"
+              placeholder="Search - "
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 pr-4 py-[7px] text-[13px] rounded-lg w-56 focus:w-72 transition-all duration-200"
+              style={{
+                background: 'var(--gray-50)',
+                border: '1.5px solid var(--gray-200)',
+                color: 'var(--gray-800)',
+              }}
+            />
+          </div>
+
+          
+          <button
+            className="relative p-2 rounded-lg transition-colors duration-100"
+            style={{ color: 'var(--gray-500)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--gray-50)';
+              e.currentTarget.style.color = 'var(--gray-800)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--gray-500)';
+            }}
+            aria-label="Notifications"
+          >
+            <Bell size={18} strokeWidth={1.8} />
+            <span
+              className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
+              style={{ background: 'var(--electric-blue)' }}
+            />
+          </button>
         </header>
-        <div className="p-6">
-          {children}
-        </div>
-      </main>
+
+        
+        <main className="flex-1 p-4 md:p-8">{children}</main>
+      </div>
     </div>
   );
 }

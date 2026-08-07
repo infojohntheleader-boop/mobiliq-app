@@ -1,22 +1,175 @@
+/* ============================================
+   MOBILIQ DESIGN SYSTEM
+   Premium Automotive-Inspired Palette
+   ============================================ */
+
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --blue: #00288e;
-  --blue-light: #0040cc;
-  --blue-50: #e6edfa;
-  --blue-100: #c2d4f5;
+  /* --- Brand Colors --- */
+  --electric-blue: #2563eb;
+  --electric-blue-hover: #1d4ed8;
+  --electric-blue-light: #eff6ff;
+  --electric-blue-muted: #bfdbfe;
+  --emerald: #059669;
+  --emerald-light: #ecfdf5;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --rose: #e11d48;
+  --rose-light: #fff1f2;
+  --violet: #7c3aed;
+  --violet-light: #f5f3ff;
+
+  /* --- Neutrals --- */
+  --white: #ffffff;
+  --gray-25: #fcfcfd;
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #adb5bd;
+  --gray-500: #868e96;
+  --gray-600: #495057;
+  --gray-700: #343a40;
+  --gray-800: #212529;
+  --gray-900: #0d1117;
+
+  /* --- Shadows --- */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.10);
+  --shadow-glow-blue: 0 0 20px rgba(37,99,235,0.15);
+
+  /* --- Radius --- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* --- Spacing --- */
+  --sidebar-width: 260px;
+  --header-height: 56px;
 }
 
+/* --- Base --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color: #1f2937;
-  background: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--gray-800);
+  background: var(--gray-25);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+/* --- Form Elements --- */
 input, select, textarea {
   font-family: inherit;
+  font-size: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--gray-800);
+  outline: none;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--electric-blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+input::placeholder, textarea::placeholder {
+  color: var(--gray-400);
+}
+
+/* --- Transitions --- */
+button, a { transition: all 0.15s ease; }
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-in { animation: slideIn 0.25s ease-out; }
+
+/* --- Dashboard Layout --- */
+.mobiliq-shell {
+  min-height: 100vh;
+  display: flex;
+}
+.mobiliq-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .mobiliq-main { margin-left: var(--sidebar-width); }
+}
+.mobiliq-sidebar {
+  width: var(--sidebar-width);
+  background: var(--white);
+  border-right: 1px solid rgba(233,236,240,0.6);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset-y: 0;
+  left: 0;
+  z-index: 50;
+  transition: transform 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  .mobiliq-sidebar { transform: translateX(-100%); }
+  .mobiliq-sidebar.mobiliq-sidebar-open { transform: translateX(0); }
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  transition: background 0.1s, color 0.1s;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--gray-600);
+}
+.nav-link:hover { background: var(--gray-50); color: var(--gray-900); }
+.nav-link.nav-link-active { background: var(--electric-blue-light); color: var(--electric-blue); font-weight: 500; }
+.nav-link.nav-link-active:hover { background: var(--electric-blue-light); color: var(--electric-blue); }
+
+@keyframes invCardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vehicleCardIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
